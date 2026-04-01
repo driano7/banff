@@ -1,0 +1,75 @@
+import { HeadingTypewriter } from "@/components/heading-typewriter"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { MdxArticle } from "@/components/mdx-article"
+import { ServicesPhoneShowcase } from "@/components/services-phone-showcase"
+import { readLocalizedMdx, renderMdxToHtml } from "@/lib/mdx"
+import { getSiteCopy, type Locale } from "@/lib/site-content"
+
+type ServicesPageContentProps = {
+  locale: Locale
+}
+
+export function ServicesPageContent({ locale }: ServicesPageContentProps) {
+  const copy = getSiteCopy(locale)
+  const doc = readLocalizedMdx("services", locale) ?? readLocalizedMdx("services", "en")
+
+  if (!doc) return null
+
+  return (
+    <main id="services-scope" className="mx-auto w-full max-w-6xl px-4 pb-8 pt-28 sm:px-6 lg:pt-32">
+      <HeadingTypewriter scopeSelector="#services-scope" />
+
+      <ScrollReveal direction="up" once>
+        <MdxArticle title={doc.title} excerpt={doc.excerpt} html={renderMdxToHtml(doc.content)} />
+      </ScrollReveal>
+
+      <div className="mt-14 md:mt-16">
+        <ServicesPhoneShowcase locale={locale} cards={copy.services.cards} />
+      </div>
+
+      <ScrollReveal direction="up" once className="mt-10">
+        <section className="grid gap-4 rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground dark:bg-card/70 md:grid-cols-[1.05fr_0.95fr] md:p-6">
+          <div className="space-y-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent)]">
+              {locale === "es" ? "Más contexto" : locale === "fr" ? "Plus de contexte" : "More context"}
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight text-card-foreground md:text-3xl">
+              {locale === "es"
+                ? "No son solo cards: son sistemas que modernizan tu producto."
+                : locale === "fr"
+                  ? "Ce ne sont pas seulement des cartes: ce sont des systèmes qui modernisent votre produit."
+                  : "These are not just cards: they are systems that modernize your product."}
+            </h2>
+            <p className="text-sm leading-7 text-muted-foreground md:text-base">
+              {locale === "es"
+                ? "Podemos rediseñar una app existente, rehacer un sitio web viejo, añadir automatización con AI y conectar pagos o experiencias cripto donde realmente aporten valor. El objetivo es que tu presencia digital se vea moderna, funcione mejor y convierta más."
+                : locale === "fr"
+                  ? "Nous pouvons refondre une app existante, moderniser un vieux site web, ajouter de l’automatisation IA et connecter des paiements ou expériences crypto là où cela apporte réellement de la valeur. L’objectif est d’avoir une présence digitale moderne, plus efficace et plus performante."
+                  : "We can redesign an existing app, rebuild an old website, add AI automation, and connect crypto payments or experiences where they actually make sense. The goal is to make your digital presence feel modern, work better, and convert more."}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {(locale === "es"
+                ? ["Modernización de sitios", "Apps más rápidas", "AI integrada", "Cripto donde aporte"]
+                : locale === "fr"
+                  ? ["Modernisation de sites", "Apps plus rapides", "IA intégrée", "Crypto utile"]
+                  : ["Website modernization", "Faster apps", "AI integrated", "Crypto where useful"]
+              ).map((item) => (
+                <span key={item} className="rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs font-medium text-muted-foreground">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="grid gap-2">
+            {copy.services.cards.slice(0, 4).map((card) => (
+              <div key={card.title} className="rounded-2xl border border-border/60 bg-background/75 p-4">
+                <p className="text-sm font-semibold text-card-foreground">{card.title}</p>
+                <p className="mt-1 text-xs leading-6 text-muted-foreground">{card.summary}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+    </main>
+  )
+}

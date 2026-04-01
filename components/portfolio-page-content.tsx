@@ -1,0 +1,442 @@
+import Link from "next/link"
+import { ArrowUpRight, CalendarClock, ChevronDown, GitFork, Globe2, Star } from "lucide-react"
+
+import { HeadingTypewriter } from "@/components/heading-typewriter"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { getFeaturedGitHubProjects, summarizeGitHubProjects, type GitHubRepository } from "@/lib/github-projects"
+import { type Locale } from "@/lib/site-content"
+
+type PortfolioPageContentProps = {
+  locale: Locale
+}
+
+const heroCopy: Record<Locale, { eyebrow: string; title: string; description: string; sectionTag: string; showcaseTag: string; recentTag: string; emptyState: string; openRepo: string; openSite: string; updated: string; projectInProgress: string; conceptProject: string; featuredRepos: string; technicalShowcase: string; }> = {
+  en: {
+    eyebrow: "Portfolio",
+    title: "My portfolios and real-time contributions",
+    description:
+      "Professional tracking of GitHub activity with a curated selection of recent repositories, project showcases, and bilingual product work.",
+    sectionTag: "GitHub Contributions",
+    showcaseTag: "Project in progress",
+    recentTag: "Featured recent repositories",
+    emptyState: "No projects available right now.",
+    openRepo: "Open repository",
+    openSite: "Open live site",
+    updated: "Updated",
+    projectInProgress: "Project in progress",
+    conceptProject: "Concept project",
+    featuredRepos: "Featured recent repositories",
+    technicalShowcase: "Technical showcase",
+  },
+  fr: {
+    eyebrow: "Portfolio",
+    title: "Mes portefeuilles et mes contributions en temps réel",
+    description:
+      "Suivi professionnel de l’activité GitHub avec une sélection curatée de dépôts récents, de projets mis en avant et de travaux bilingues.",
+    sectionTag: "Contributions GitHub",
+    showcaseTag: "Projet en cours",
+    recentTag: "Dépôts récents en vedette",
+    emptyState: "Aucun projet disponible pour le moment.",
+    openRepo: "Ouvrir le dépôt",
+    openSite: "Ouvrir le site",
+    updated: "Mis à jour",
+    projectInProgress: "Projet en cours",
+    conceptProject: "Projet conceptuel",
+    featuredRepos: "Dépôts récents en vedette",
+    technicalShowcase: "Vitrine technique",
+  },
+  es: {
+    eyebrow: "Portafolio",
+    title: "Mis portafolios y contribuciones en tiempo real",
+    description:
+      "Seguimiento profesional de la actividad en GitHub con una selección curada de repositorios recientes, proyectos destacados y trabajo bilingüe.",
+    sectionTag: "Contribuciones de GitHub",
+    showcaseTag: "Proyecto en desarrollo",
+    recentTag: "Repositorios recientes destacados",
+    emptyState: "No hay proyectos disponibles en este momento.",
+    openRepo: "Abrir repositorio",
+    openSite: "Abrir sitio",
+    updated: "Actualizado",
+    projectInProgress: "Proyecto en desarrollo",
+    conceptProject: "Proyecto conceptual",
+    featuredRepos: "Repositorios recientes destacados",
+    technicalShowcase: "Showcase técnico",
+  },
+}
+
+const showcaseDetails = {
+  en: {
+    xoco: {
+      title: "Xoco Suite - POS, advanced metrics, and client app",
+      summary:
+        "A long-running product that connects website, client app, and point of sale in one architecture. The POS syncs directly with the client app to keep orders moving in real time.",
+      body:
+        "The solution includes advanced metrics, hygiene and compliance workflows aligned with government entities, and a modern payment layer through local rails and crypto settlements.",
+      links: [
+        { href: "https://v0-xoco-suite-landing.vercel.app", label: "Xoco Suite landing" },
+        { href: "https://xococafe.site", label: "Client app demo" },
+      ],
+    },
+    strawberry: {
+      title: "Strawberry Wallet + ZK Proofs",
+      summary:
+        "A wallet concept focused on privacy and usability, using Zero-Knowledge Proofs to validate information without exposing sensitive data.",
+      body:
+        "Goal: stronger operational security with a better user experience for Web3 payments and transfers.",
+      links: [
+        { href: "https://strawberrywallet.netlify.app", label: "Open Strawberry app" },
+        { href: "https://github.com/driano7/StrawberryWallet", label: "Strawberry Wallet repo" },
+      ],
+    },
+  },
+  fr: {
+    xoco: {
+      title: "Xoco Suite - POS, métriques avancées et app client",
+      summary:
+        "Un produit en cours qui relie site web, app client et point de vente dans une seule architecture. Le POS synchronise directement les commandes avec l’app client.",
+      body:
+        "La solution intègre des métriques avancées, des flux conformité/hygiène et une couche de paiement moderne via des rails locaux et des règlements crypto.",
+      links: [
+        { href: "https://v0-xoco-suite-landing.vercel.app", label: "Landing Xoco Suite" },
+        { href: "https://xococafe.site", label: "Démo app client" },
+      ],
+    },
+    strawberry: {
+      title: "Strawberry Wallet + ZK Proofs",
+      summary:
+        "Un concept de wallet centré sur la confidentialité et l’ergonomie, avec des Zero-Knowledge Proofs pour valider l’information sans exposer les données sensibles.",
+      body:
+        "Objectif: renforcer la sécurité opérationnelle tout en améliorant l’expérience utilisateur pour les paiements et transferts Web3.",
+      links: [
+        { href: "https://strawberrywallet.netlify.app", label: "Ouvrir Strawberry" },
+        { href: "https://github.com/driano7/StrawberryWallet", label: "Repo Strawberry Wallet" },
+      ],
+    },
+  },
+  es: {
+    xoco: {
+      title: "Xoco Suite - POS, métricas avanzadas y app cliente",
+      summary:
+        "Un proyecto en desarrollo que conecta sitio web, app de cliente y punto de venta en una sola arquitectura. El POS sincroniza pedidos en tiempo real con la app cliente.",
+      body:
+        "La solución incorpora métricas avanzadas, flujos de higiene y cumplimiento alineados a organismos gubernamentales, y una capa de pagos moderna con rieles locales y cripto.",
+      links: [
+        { href: "https://v0-xoco-suite-landing.vercel.app", label: "Landing Xoco Suite" },
+        { href: "https://xococafe.site", label: "Demo app cliente" },
+      ],
+    },
+    strawberry: {
+      title: "Strawberry Wallet + ZK Proofs",
+      summary:
+        "Un concepto de wallet enfocado en privacidad y usabilidad, usando Zero-Knowledge Proofs para validar información sin exponer datos sensibles.",
+      body:
+        "Objetivo: mayor seguridad operativa con una mejor experiencia de usuario para pagos y transferencias Web3.",
+      links: [
+        { href: "https://strawberrywallet.netlify.app", label: "Abrir Strawberry" },
+        { href: "https://github.com/driano7/StrawberryWallet", label: "Repo Strawberry Wallet" },
+      ],
+    },
+  },
+} as const
+
+const surfaceGradients = [
+  "from-accent/20 via-background to-primary/10",
+  "from-sky-400/20 via-background to-accent/15",
+  "from-emerald-400/20 via-background to-accent/15",
+] as const
+
+const localeMap: Record<Locale, string> = {
+  en: "en",
+  fr: "fr",
+  es: "es",
+}
+
+function formatRelativeTime(dateString: string, locale: Locale) {
+  const date = new Date(dateString)
+  const diffSeconds = Math.max(1, Math.floor((Date.now() - date.getTime()) / 1000))
+  const lang = localeMap[locale]
+  const rtf = new Intl.RelativeTimeFormat(lang, { numeric: "auto" })
+
+  if (diffSeconds < 60) return rtf.format(-diffSeconds, "second")
+  if (diffSeconds < 3600) return rtf.format(-Math.round(diffSeconds / 60), "minute")
+  if (diffSeconds < 86_400) return rtf.format(-Math.round(diffSeconds / 3600), "hour")
+  if (diffSeconds < 604_800) return rtf.format(-Math.round(diffSeconds / 86_400), "day")
+  if (diffSeconds < 2_592_000) return rtf.format(-Math.round(diffSeconds / 604_800), "week")
+  if (diffSeconds < 31_536_000) return rtf.format(-Math.round(diffSeconds / 2_592_000), "month")
+  return rtf.format(-Math.round(diffSeconds / 31_536_000), "year")
+}
+
+function getDisplayProjectName(name: string) {
+  return name.toLowerCase() === "portoflio" ? "Portfolio" : name
+}
+
+function ProjectShowcaseCard({
+  title,
+  badge,
+  summary,
+  body,
+  links,
+}: {
+  title: string
+  badge: string
+  summary: string
+  body: string
+  links: Array<{ href: string; label: string }>
+}) {
+  return (
+    <details open className="group rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground shadow-[0_20px_60px_rgba(15,23,42,0.1)] dark:bg-card/70">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
+        <span className="inline-flex rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--accent)]">
+          {badge}
+        </span>
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/75 text-foreground transition-transform duration-300 group-open:rotate-180">
+          <ChevronDown className="h-4 w-4" />
+        </span>
+      </summary>
+
+      <div className="mt-4 space-y-3">
+        <h3
+          className="title-typewriter-ready title-typewriter-active text-2xl font-bold tracking-tight text-card-foreground md:text-3xl"
+          aria-label={title}
+        >
+          {Array.from(title).map((char, index) =>
+            char === " " ? (
+              <span key={`${title}-space-${index}`}> </span>
+            ) : (
+              <span key={`${title}-char-${index}`} className="title-typing-word">
+                <span className="title-typing-char" style={{ ["--typing-char-index" as string]: index }}>
+                  {char}
+                </span>
+              </span>
+            ),
+          )}
+          <span className="title-typing-caret" aria-hidden="true" />
+        </h3>
+        <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+        <div className="flex flex-wrap items-center gap-2 pt-2">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-3 py-2 text-xs font-semibold text-card-foreground transition-colors hover:border-[color:var(--accent)]/40 hover:text-[color:var(--accent)]"
+            >
+              {link.label}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </details>
+  )
+}
+
+function RepositoryCard({
+  repo,
+  locale,
+  index,
+  label,
+}: {
+  repo: GitHubRepository
+  locale: Locale
+  index: number
+  label: {
+    openRepo: string
+    updated: string
+  }
+}) {
+  const hasCover = Boolean(repo.coverImageUrl)
+  const displayName = getDisplayProjectName(repo.name)
+  const bars = [24, 40, 58, 76].map((base, barIndex) => {
+    const activityBoost = Math.min(22, Math.floor((repo.stargazers_count + repo.forks_count) / (barIndex + 3)))
+    return Math.min(92, base + activityBoost)
+  })
+
+  return (
+    <ScrollReveal direction={index % 2 === 0 ? "up" : "down"} delay={0.08 + index * 0.08}>
+      <article className="rounded-[2rem] border border-border/70 bg-card/75 p-3 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] transition">
+        <div className={`relative mb-4 h-44 overflow-hidden rounded-[1.4rem] border border-border/70 bg-gradient-to-br p-4 ${surfaceGradients[index % surfaceGradients.length]}`}>
+          {hasCover ? (
+            <>
+              <img
+                src={repo.coverImageUrl ?? ""}
+                alt={`${displayName} cover`}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-black/45" />
+            </>
+          ) : (
+            <>
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent/20 blur-xl" />
+              <div className="absolute -bottom-8 -left-6 h-24 w-24 rounded-full bg-primary/20 blur-xl" />
+            </>
+          )}
+          <div className="relative flex h-full flex-col justify-between">
+            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+              <Globe2 className="h-3.5 w-3.5 text-[color:var(--accent)]" />
+              {repo.language ?? "Repository"}
+            </div>
+            {!hasCover ? (
+              <div className="flex items-end gap-2">
+                {bars.map((height, barIndex) => (
+                  <div
+                    key={`${repo.id}-bar-${barIndex}`}
+                    className="w-10 rounded-t-xl border border-[color:var(--accent)]/30 bg-[color:var(--accent)]/70"
+                    style={{ height: `${height}%` }}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="px-2 pb-2">
+          <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+            #{index + 1} {repo.homepage ? "Portfolio" : "Repository"}
+          </div>
+
+          <h4 className="text-xl font-bold leading-tight text-card-foreground">{displayName}</h4>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {repo.description ?? "Repository without description yet."}
+          </p>
+
+          <div className="mt-3 rounded-xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-card-foreground">
+            <div className="flex flex-wrap items-center gap-4">
+              <span className="inline-flex items-center gap-1.5">
+                <Star className="h-4 w-4 text-[color:var(--accent)]" />
+                {repo.stargazers_count}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <GitFork className="h-4 w-4 text-[color:var(--accent)]" />
+                {repo.forks_count}
+              </span>
+              <span className="text-muted-foreground">
+                {label.updated} {formatRelativeTime(repo.pushed_at, locale)}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <Link
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--foreground)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              {label.openRepo}
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            {repo.homepage ? (
+              <Link
+                href={repo.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-card-foreground transition-colors hover:border-[color:var(--accent)]/40 hover:text-[color:var(--accent)]"
+              >
+                {repo.homepage.includes("demo") ? "Demo" : "Live"}
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </article>
+    </ScrollReveal>
+  )
+}
+
+export async function PortfolioPageContent({ locale }: PortfolioPageContentProps) {
+  const copy = heroCopy[locale]
+  const showcase = showcaseDetails[locale]
+  const projects = await getFeaturedGitHubProjects(7)
+  const stats = summarizeGitHubProjects(projects)
+
+  return (
+    <main id="portfolio-scope" className="mx-auto w-full max-w-6xl px-4 pb-10 pt-28 sm:px-6 lg:pt-32">
+      <HeadingTypewriter scopeSelector="#portfolio-scope" />
+
+      <div className="mx-auto max-w-5xl text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[color:var(--accent)]">{copy.eyebrow}</p>
+        <h1 className="mt-3 text-balance font-serif text-4xl leading-[1.02] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          {copy.title}
+        </h1>
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
+      </div>
+
+      <ScrollReveal direction="up" once className="mt-8">
+        <section className="rounded-[2rem] border border-border/60 bg-card/80 p-4 dark:bg-card/70 md:p-6">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs font-semibold text-[color:var(--accent)]">
+            <CalendarClock className="h-3.5 w-3.5" />
+            {copy.sectionTag}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-[1.5rem] border border-border/60 bg-background/75 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Repos</p>
+              <p className="mt-2 text-3xl font-bold text-foreground">{stats.projectCount}</p>
+            </div>
+            <div className="rounded-[1.5rem] border border-border/60 bg-background/75 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Stars</p>
+              <p className="mt-2 text-3xl font-bold text-foreground">{stats.totalStars}</p>
+            </div>
+            <div className="rounded-[1.5rem] border border-border/60 bg-background/75 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Forks</p>
+              <p className="mt-2 text-3xl font-bold text-foreground">{stats.totalForks}</p>
+            </div>
+            <div className="rounded-[1.5rem] border border-border/60 bg-background/75 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Languages</p>
+              <p className="mt-2 text-3xl font-bold text-foreground">{stats.languageCount}</p>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <div className="mt-8 grid gap-4">
+        <ProjectShowcaseCard
+          badge={copy.projectInProgress}
+          title={showcase.xoco.title}
+          summary={showcase.xoco.summary}
+          body={showcase.xoco.body}
+          links={showcase.xoco.links}
+        />
+        <ProjectShowcaseCard
+          badge={copy.conceptProject}
+          title={showcase.strawberry.title}
+          summary={showcase.strawberry.summary}
+          body={showcase.strawberry.body}
+          links={showcase.strawberry.links}
+        />
+      </div>
+
+      <div className="mt-12 mb-6 flex items-center justify-between gap-3">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{copy.featuredRepos}</h2>
+        <span className="rounded-full border border-border/60 bg-card/80 px-3 py-1 text-xs font-semibold text-muted-foreground">
+          {copy.technicalShowcase}
+        </span>
+      </div>
+
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {projects.map((repo, index) => (
+          <RepositoryCard
+            key={repo.id}
+            repo={repo}
+            locale={locale}
+            index={index}
+            label={{
+              openRepo: copy.openRepo,
+              updated: copy.updated,
+            }}
+          />
+        ))}
+      </section>
+
+      {projects.length === 0 ? (
+        <div className="mt-6 rounded-2xl border border-border/60 bg-card/75 px-4 py-5 text-center text-muted-foreground">
+          {copy.emptyState}
+        </div>
+      ) : null}
+    </main>
+  )
+}
