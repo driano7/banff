@@ -2,7 +2,7 @@ const DEFAULT_SITE_URL = "http://localhost:3000"
 
 export const SITE_NAME = "Banff Studio"
 export const SITE_DESCRIPTION =
-  "Bilingual web and mobile development with UX/UI, AI-assisted delivery, and Web3-aware execution for Mexico and Canada."
+  "Banff Studio builds bilingual websites and mobile apps for Mexico and Canada with UX/UI, AI-assisted delivery, SEO, social media marketing, and crypto-aware execution."
 export const OG_IMAGE_PATH = "/opengraph-image"
 
 export function getSiteUrl() {
@@ -25,4 +25,3 @@ export const SOCIAL_LINKS = [
   "https://t.me/driano7",
   "https://t.me/riaygarcia4",
 ] as const
-
