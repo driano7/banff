@@ -295,10 +295,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Let us know what you want to build.",
       description:
         "If you have a website, app, or growth project in mind, these are the fastest ways to reach us.",
-      telegrams: ["t.me/riaygarcia4", "t.me/driano7"],
-      whatsapp: "+647 223 0271",
-      phone: "+647 223 0271",
-      emails: ["y@critec.io", "donovan@criptec.io"],
+      telegrams: ["https://t.me/riaygarcia4", "https://t.me/driano7"],
+      whatsapp: "+1 647 223 0271",
+      phone: "+1 647 223 0271",
+      emails: ["y@criptec.io", "donovan@criptec.io"],
       github: "github.com/driano7",
     },
     footer: {
@@ -438,10 +438,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Dites-nous ce que vous voulez construire.",
       description:
         "Si vous avez un site, une app ou un projet de croissance en tête, voici les moyens les plus rapides pour nous joindre.",
-      telegrams: ["t.me/riaygarcia4", "t.me/driano7"],
-      whatsapp: "+647 223 0271",
-      phone: "+647 223 0271",
-      emails: ["y@critec.io", "donovan@criptec.io"],
+      telegrams: ["https://t.me/riaygarcia4", "https://t.me/driano7"],
+      whatsapp: "+1 647 223 0271",
+      phone: "+1 647 223 0271",
+      emails: ["y@criptec.io", "donovan@criptec.io"],
       github: "github.com/driano7",
     },
     footer: {
@@ -581,10 +581,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Cuéntanos qué quieres construir.",
       description:
         "Si tienes en mente un sitio, una app o un proyecto de crecimiento, estas son las formas más rápidas de contactarnos.",
-      telegrams: ["t.me/riaygarcia4", "t.me/driano7"],
-      whatsapp: "+647 223 0271",
-      phone: "+647 223 0271",
-      emails: ["y@critec.io", "donovan@criptec.io"],
+      telegrams: ["https://t.me/riaygarcia4", "https://t.me/driano7"],
+      whatsapp: "+1 647 223 0271",
+      phone: "+1 647 223 0271",
+      emails: ["y@criptec.io", "donovan@criptec.io"],
       github: "github.com/driano7",
     },
     footer: {

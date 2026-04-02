@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Github, Mail, Send, Smartphone, Phone } from "lucide-react"
 
-import { ScrollReveal } from "@/components/scroll-reveal"
 import { getSiteCopy, type Locale } from "@/lib/site-content"
 
 type SiteFooterProps = {
@@ -12,21 +11,24 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   const copy = getSiteCopy(locale)
   const hasMultipleTelegrams = copy.contact.telegrams.length > 1
   const hasMultipleEmails = copy.contact.emails.length > 1
+  const normalizeExternalHref = (href: string) => (href.startsWith("http") ? href : `https://${href}`)
+  const digitsOnlyPhone = copy.contact.phone.replace(/[^+\d]/g, "")
+  const whatsappHref = `https://wa.me/${copy.contact.whatsapp.replace(/[^+\d]/g, "").replace(/^\+/, "")}`
   const contactItems = [
     ...copy.contact.telegrams.map((telegram, index) => ({
-      href: telegram,
+      href: normalizeExternalHref(telegram),
       label: `Telegram${index === 0 && hasMultipleTelegrams ? " (main)" : ""}`,
       icon: Send,
       external: true,
     })),
     {
-      href: "https://wa.me/16472230271",
+      href: whatsappHref,
       label: "WhatsApp",
       icon: Smartphone,
       external: true,
     },
     {
-      href: `tel:${copy.contact.phone.replace(/[^+\d]/g, "")}`,
+      href: `tel:${digitsOnlyPhone}`,
       label: "Call",
       icon: Phone,
       external: false,
@@ -49,25 +51,23 @@ export function SiteFooter({ locale }: SiteFooterProps) {
     <footer className="relative mt-8 border-t border-black/10 bg-white/75 backdrop-blur-xl dark:bg-black/40">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:px-6">
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold">
-          {contactItems.map((item, index) => {
+          {contactItems.map((item) => {
             const Icon = item.icon
             const chip = (
-              <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-2 text-foreground transition-colors hover:border-[color:var(--accent)]/30 hover:text-[color:var(--accent)] dark:border-white/10 dark:bg-white/5">
+              <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-2 text-foreground transition-colors hover:border-[color:var(--accent)]/30 hover:text-[color:var(--accent)] dark:border-white/10 dark:bg-white/5 dark:text-white/90">
                 <Icon className="h-3.5 w-3.5" />
                 {item.label}
               </span>
             )
 
-            return (
-              <ScrollReveal key={item.href} delay={index * 0.04} direction="up" once>
-                {item.external ? (
-                  <Link href={item.href} target="_blank" rel="noreferrer">
-                    {chip}
-                  </Link>
-                ) : (
-                  <a href={item.href}>{chip}</a>
-                )}
-              </ScrollReveal>
+            return item.external ? (
+              <Link key={item.href} href={item.href} target="_blank" rel="noreferrer">
+                {chip}
+              </Link>
+            ) : (
+              <a key={item.href} href={item.href}>
+                {chip}
+              </a>
             )
           })}
         </div>

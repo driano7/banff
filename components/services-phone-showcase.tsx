@@ -233,7 +233,7 @@ export function ServicesPhoneShowcase({ locale, cards }: ServicesPhoneShowcasePr
 
   const spreadMedium = isMobile ? 1.12 : 1.28
   const spreadLong = isMobile ? 1.4 : 1.78
-  const phoneXOffset = isMobile ? 12 : 34
+  const phoneXOffset = isMobile ? 31 : 90
 
   const cardByLayout = (id: PeripheralKey) => peripheralCards.find((card) => card.id === id) ?? peripheralCards[0]
 
@@ -306,7 +306,7 @@ export function ServicesPhoneShowcase({ locale, cards }: ServicesPhoneShowcasePr
               <div
                 className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
                 style={{
-                  transform: `translate3d(calc(-50% + ${phoneXOffset}px), calc(-50% + ${lerp(126, -18, progressBoost)}px), 0) scale(${lerp(0.74, 1.02, progressBoost)})`,
+                  transform: `translate3d(calc(-50% + ${phoneXOffset}px), calc(-50% + ${lerp(145, -15, progressBoost)}px), 0) scale(${lerp(0.74, 1.02, progressBoost)})`,
                   width: phoneFrame.width,
                   height: phoneFrame.height,
                   transition: `transform 120ms ${EASE_OUT}`,

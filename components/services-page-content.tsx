@@ -5,6 +5,12 @@ import { ServicesPhoneShowcase } from "@/components/services-phone-showcase"
 import { readLocalizedMdx, renderMdxToHtml } from "@/lib/mdx"
 import { getSiteCopy, type Locale } from "@/lib/site-content"
 
+const serviceContextSurfaces = [
+  "from-accent/20 via-background to-primary/10",
+  "from-sky-400/20 via-background to-accent/15",
+  "from-emerald-400/20 via-background to-accent/15",
+] as const
+
 type ServicesPageContentProps = {
   locale: Locale
 }
@@ -28,7 +34,7 @@ export function ServicesPageContent({ locale }: ServicesPageContentProps) {
       </div>
 
       <ScrollReveal direction="up" once className="mt-10">
-        <section className="grid gap-4 rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground dark:bg-card/70 md:grid-cols-[1.05fr_0.95fr] md:p-6">
+        <section className="grid gap-5 rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground dark:bg-card/70 md:grid-cols-[1.05fr_0.95fr] md:p-6">
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent)]">
               {locale === "es" ? "Más contexto" : locale === "fr" ? "Plus de contexte" : "More context"}
@@ -59,13 +65,68 @@ export function ServicesPageContent({ locale }: ServicesPageContentProps) {
                 </span>
               ))}
             </div>
+            <div className="grid gap-3">
+              {copy.services.cards.slice(2, 4).map((card, index) => {
+                const cardIndex = index + 2
+                return (
+                  <article
+                    key={card.title}
+                    className={`rounded-[2rem] border border-border/70 bg-card/75 p-3 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] transition ${
+                      cardIndex === 3 ? "md:translate-y-2" : ""
+                    }`}
+                  >
+                    <div className={`relative h-full overflow-hidden rounded-[1.4rem] border border-border/70 bg-gradient-to-br p-4 ${serviceContextSurfaces[cardIndex % serviceContextSurfaces.length]}`}>
+                      <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-accent/20 blur-xl" />
+                      <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-primary/20 blur-xl" />
+                      <div className="relative space-y-2">
+                        <span className="inline-flex rounded-full border border-border/70 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+                          0{cardIndex + 1}
+                        </span>
+                        <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{card.title}</h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground">{card.summary}</p>
+                        <ul className="space-y-2 pt-1 text-xs leading-relaxed text-foreground">
+                          {card.deliverables.map((deliverable) => (
+                            <li key={deliverable} className="flex gap-2">
+                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
+                              <span>{deliverable}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
           </div>
-          <div className="grid gap-2">
-            {copy.services.cards.slice(0, 4).map((card) => (
-              <div key={card.title} className="rounded-2xl border border-border/60 bg-background/75 p-4">
-                <p className="text-sm font-semibold text-card-foreground">{card.title}</p>
-                <p className="mt-1 text-xs leading-6 text-muted-foreground">{card.summary}</p>
-              </div>
+          <div className="grid gap-3">
+            {copy.services.cards.slice(0, 2).map((card, index) => (
+              <article
+                key={card.title}
+                className={`rounded-[2rem] border border-border/70 bg-card/75 p-3 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] transition ${
+                  index === 1 ? "md:translate-y-2" : ""
+                }`}
+              >
+                <div className={`relative h-full overflow-hidden rounded-[1.4rem] border border-border/70 bg-gradient-to-br p-4 ${serviceContextSurfaces[index % serviceContextSurfaces.length]}`}>
+                  <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-accent/20 blur-xl" />
+                  <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-primary/20 blur-xl" />
+                  <div className="relative space-y-2">
+                    <span className="inline-flex rounded-full border border-border/70 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+                      0{index + 1}
+                    </span>
+                    <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{card.title}</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{card.summary}</p>
+                    <ul className="space-y-2 pt-1 text-xs leading-relaxed text-foreground">
+                      {card.deliverables.map((deliverable) => (
+                        <li key={deliverable} className="flex gap-2">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
+                          <span>{deliverable}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </section>
