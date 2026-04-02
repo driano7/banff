@@ -95,9 +95,9 @@ export function ServicesPageContent({ locale }: ServicesPageContentProps) {
                         </span>
                         <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{card.title}</h3>
                         <p className="text-sm leading-relaxed text-muted-foreground">{card.summary}</p>
-                        <ul className="space-y-2 pt-1 text-xs leading-relaxed text-foreground">
+                        <ul className="mx-auto max-w-xs space-y-2 pt-1 text-center text-xs leading-relaxed text-foreground">
                           {card.deliverables.map((deliverable) => (
-                            <li key={deliverable} className="flex justify-center gap-2 text-left">
+                            <li key={deliverable} className="flex items-center justify-center gap-2 text-center">
                               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
                               <span>{deliverable}</span>
                             </li>
@@ -129,9 +129,9 @@ export function ServicesPageContent({ locale }: ServicesPageContentProps) {
                       </span>
                       <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{card.title}</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">{card.summary}</p>
-                      <ul className="space-y-2 pt-1 text-xs leading-relaxed text-foreground">
+                      <ul className="mx-auto max-w-xs space-y-2 pt-1 text-center text-xs leading-relaxed text-foreground">
                         {card.deliverables.map((deliverable) => (
-                          <li key={deliverable} className="flex justify-center gap-2 text-left">
+                          <li key={deliverable} className="flex items-center justify-center gap-2 text-center">
                             <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
                             <span>{deliverable}</span>
                           </li>
@@ -161,9 +161,9 @@ export function ServicesPageContent({ locale }: ServicesPageContentProps) {
                     </span>
                     <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{card.title}</h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">{card.summary}</p>
-                    <ul className="space-y-2 pt-1 text-xs leading-relaxed text-foreground">
+                    <ul className="mx-auto max-w-xs space-y-2 pt-1 text-center text-xs leading-relaxed text-foreground">
                       {card.deliverables.map((deliverable) => (
-                        <li key={deliverable} className="flex justify-center gap-2 text-left">
+                        <li key={deliverable} className="flex items-center justify-center gap-2 text-center">
                           <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
                           <span>{deliverable}</span>
                         </li>
