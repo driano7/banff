@@ -233,7 +233,8 @@ export function ServicesPhoneShowcase({ locale, cards }: ServicesPhoneShowcasePr
 
   const spreadMedium = isMobile ? 1.12 : 1.28
   const spreadLong = isMobile ? 1.4 : 1.78
-  const phoneXOffset = isMobile ? 45 : 131
+  const phoneXOffset = isMobile ? 72 : 210
+  const peripheralRightBias = isMobile ? 108 : 286
 
   const cardByLayout = (id: PeripheralKey) => peripheralCards.find((card) => card.id === id) ?? peripheralCards[0]
 
@@ -280,7 +281,7 @@ export function ServicesPhoneShowcase({ locale, cards }: ServicesPhoneShowcasePr
                   const yMedium = layout.initialY + (layout.id === "bottom-center" ? 14 : 10)
                   const yFar = layout.initialY + (layout.id === "bottom-center" ? 76 : 88)
 
-                  const x = lerp(lerp(xNear, xMedium, clamp(progressBoost / 0.28, 0, 1)), xLong, clamp((progressBoost - 0.28) / 0.72, 0, 1))
+                  const x = lerp(lerp(xNear, xMedium, clamp(progressBoost / 0.28, 0, 1)), xLong, clamp((progressBoost - 0.28) / 0.72, 0, 1)) + peripheralRightBias
                   const y = lerp(lerp(yNear, yMedium, clamp(progressBoost / 0.28, 0, 1)), yFar, clamp((progressBoost - 0.28) / 0.72, 0, 1))
                   const rotate = lerp(layout.initialRotate, layout.initialRotate * 1.24, clamp(progressBoost / 1, 0, 1))
                   const opacity = lerp(1, 0.34, clamp((progressBoost - 0.24) / 0.76, 0, 1))
