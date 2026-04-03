@@ -2,7 +2,7 @@ const DEFAULT_SITE_URL = "http://localhost:3000"
 
 export const SITE_NAME = "Banff Studio"
 export const SITE_DESCRIPTION =
-  "Banff Studio builds bilingual websites and mobile apps for Mexico and Canada with UX/UI, AI-assisted delivery, SEO, social media marketing, and crypto-aware execution."
+  "Banff Studio builds bilingual websites and mobile apps for Canada and Mexico with UX/UI, AI-assisted delivery, SEO, social media marketing, and crypto-aware execution."
 export const OG_IMAGE_PATH = "/opengraph-image"
 
 export function getSiteUrl() {

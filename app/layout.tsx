@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteParticleBackground } from "@/components/site-particle-background"
 import { ThemeProvider } from "@/components/theme-provider"
 import { getLocaleFromCookies } from "@/lib/locale"
-import { getMetadataBaseUrl, getSiteUrl, OG_IMAGE_PATH, SITE_DESCRIPTION, SITE_NAME, SOCIAL_LINKS } from "@/lib/seo"
+import { getMetadataBaseUrl, getSiteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL_LINKS } from "@/lib/seo"
 import { getThemeFromRequest } from "@/lib/theme"
 import "./globals.css"
 
@@ -95,10 +95,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: OG_IMAGE_PATH,
+        url: "/serene-nature-sharp.jpg",
         width: 1200,
         height: 630,
-        alt: SITE_NAME,
+        alt: `${SITE_NAME} homepage forest background`,
       },
     ],
   },
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: [OG_IMAGE_PATH],
+    images: ["/serene-nature-sharp.jpg"],
   },
 }
 
