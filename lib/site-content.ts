@@ -297,7 +297,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Websites that work in Mexico and Canada.",
       slogan: "We're technology and professional development",
       description:
-        "We build bilingual websites with clear UX/UI, multilingual structure, and practical support for SEO, content, and light marketing.",
+        "We design and build websites for companies and projects in Canada and Mexico that want to communicate their value better, strengthen their digital presence, and turn prospects into new and better customers in three languages.",
       primaryCta: "Book a call",
       secondaryCta: "See the work",
       highlightOne: "Bilingual by default",
@@ -450,7 +450,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Des sites web qui fonctionnent au Mexique et au Canada.",
       slogan: "Nous sommes technologie et développement professionnel",
       description:
-        "Nous créons des sites web bilingues avec une UX/UI claire, une structure multilingue et un soutien concret en SEO, contenu et marketing léger.",
+        "Nous concevons et développons des sites web pour des entreprises et des projets au Canada et au Mexique qui veulent mieux communiquer leur valeur, renforcer leur présence numérique et convertir des prospects en nouveaux meilleurs clients en trois langues.",
       primaryCta: "Planifier un appel",
       secondaryCta: "Voir les projets",
       highlightOne: "Bilingue dès le départ",
@@ -603,7 +603,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Sitios web que funcionan en México y Canadá.",
       slogan: "Somos tecnología y desarrollo profesional",
       description:
-        "Creamos sitios web bilingües con UX/UI clara, estructura multilingüe y apoyo práctico en SEO, contenido y marketing ligero.",
+        "Diseñamos y desarrollamos sitios web para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales en nuevos y mejores clientes de manera trilingüe.",
       primaryCta: "Agendar llamada",
       secondaryCta: "Ver proyectos",
       highlightOne: "Bilingüe desde el inicio",
