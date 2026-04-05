@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, CalendarClock, ChevronDown, GitFork, Globe2, Star } from "lucide-react"
+import { ArrowUpRight, CalendarClock, ChevronDown, GitFork, Globe2, LockKeyhole, MessageSquareText, RefreshCw, ShieldCheck, Star, Workflow } from "lucide-react"
 
 import { HeadingTypewriter } from "@/components/heading-typewriter"
 import { ScrollReveal } from "@/components/scroll-reveal"
@@ -75,7 +75,26 @@ const showcaseDetails = {
       links: [
         { href: "https://v0-xoco-suite-landing.vercel.app", label: "Xoco Suite landing" },
         { href: "https://xococafe.site", label: "Client app demo" },
+        { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
+    },
+    criptec: {
+      title: "Criptec Platform - Web3 content & growth infrastructure",
+      badge: "Private project",
+      summary:
+        "Private platform for the crypto ecosystem, designed to bring content, sign-in, and conversion together in one place.",
+      body:
+        "Built with Next.js and TypeScript. MDX keeps the content easy to update, social login makes access simpler, Stripe handles payments, and analytics help the team understand how people use the site. I also worked on the affiliate and admin tools.",
+      capabilities: [
+        "Social login and auth flows",
+        "Stripe payments",
+        "Content and news publishing",
+        "Passive analytics",
+        "Internal panel and affiliates",
+      ],
+      role: "Role: Full-stack contributor on architecture, UI, and integrations.",
+      cta: "Criptec.io. I am currently working on the website redesign.",
+      links: [{ href: "https://criptec.io", label: "Criptec.io" }],
     },
     strawberry: {
       title: "Strawberry Wallet + ZK Proofs",
@@ -99,7 +118,26 @@ const showcaseDetails = {
       links: [
         { href: "https://v0-xoco-suite-landing.vercel.app", label: "Landing Xoco Suite" },
         { href: "https://xococafe.site", label: "Démo app client" },
+        { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
+    },
+    criptec: {
+      title: "Criptec Platform - infrastructure de contenu & croissance Web3",
+      badge: "Projet privé",
+      summary:
+        "Plateforme privée pour l’écosystème crypto, pensée pour réunir contenu, connexion et conversion au même endroit.",
+      body:
+        "Développée avec Next.js et TypeScript. MDX permet de mettre à jour le contenu facilement, la connexion sociale simplifie l’accès, Stripe gère les paiements et les analyses aident l’équipe à comprendre comment le site est utilisé. J’ai aussi travaillé sur les outils d’affiliation et d’administration.",
+      capabilities: [
+        "Connexion sociale et flux d’authentification",
+        "Paiements Stripe",
+        "Publication de contenu et d’actualités",
+        "Analytics passive",
+        "Espace interne et affiliés",
+      ],
+      role: "Rôle : contributeur full-stack sur l’architecture, l’UI et les intégrations.",
+      cta: "Criptec.io. Je travaille actuellement sur la refonte du site.",
+      links: [{ href: "https://criptec.io", label: "Criptec.io" }],
     },
     strawberry: {
       title: "Strawberry Wallet + ZK Proofs",
@@ -123,7 +161,26 @@ const showcaseDetails = {
       links: [
         { href: "https://v0-xoco-suite-landing.vercel.app", label: "Landing Xoco Suite" },
         { href: "https://xococafe.site", label: "Demo app cliente" },
+        { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
+    },
+    criptec: {
+      title: "Criptec Platform - infraestructura de contenido y crecimiento Web3",
+      badge: "Proyecto privado",
+      summary:
+        "Plataforma privada orientada al ecosistema cripto, pensada para reunir contenido, acceso y conversión en un solo lugar.",
+      body:
+        "Desarrollada con Next.js y TypeScript. MDX permite actualizar el contenido fácilmente, el login social simplifica el acceso, Stripe gestiona los pagos y la analítica ayuda al equipo a entender cómo se usa el sitio. También trabajé en las herramientas de afiliados y administración.",
+      capabilities: [
+        "Social login y flujos de autorización",
+        "Pagos con Stripe",
+        "Publicación de contenido y noticias",
+        "Analítica pasiva",
+        "Panel interno y afiliados",
+      ],
+      role: "Rol: Full-stack contributor en arquitectura, UI e integraciones.",
+      cta: "Criptec.io. Actualmente estoy trabajando en el rediseño de la página.",
+      links: [{ href: "https://criptec.io", label: "Criptec.io" }],
     },
     strawberry: {
       title: "Strawberry Wallet + ZK Proofs",
@@ -170,18 +227,35 @@ function getDisplayProjectName(name: string) {
   return name.toLowerCase() === "portoflio" ? "Portfolio" : name
 }
 
+const featuredRepoOrder = ["XocoCafe", "Landing-POS-Client-App", "Portfolio", "museum", "driano7"] as const
+
+function sortFeaturedRepos(projects: GitHubRepository[]) {
+  const projectMap = new Map(projects.map((repo) => [repo.name.toLowerCase(), repo]))
+  return featuredRepoOrder
+    .map((name) => projectMap.get(name.toLowerCase()))
+    .filter((repo): repo is GitHubRepository => Boolean(repo))
+}
+
 function ProjectShowcaseCard({
   title,
   badge,
   summary,
   body,
   links,
+  capabilities,
+  role,
+  cta,
+  capabilityIcons,
 }: {
   title: string
   badge: string
   summary: string
   body: string
   links: Array<{ href: string; label: string }>
+  capabilities?: string[]
+  role?: string
+  cta?: string
+  capabilityIcons?: Array<typeof LockKeyhole>
 }) {
   return (
     <details open className="group rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground shadow-[0_20px_60px_rgba(15,23,42,0.1)] dark:bg-card/70">
@@ -214,20 +288,40 @@ function ProjectShowcaseCard({
         </h3>
         <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>
         <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
-        <div className="flex flex-wrap items-center gap-2 pt-2">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-3 py-2 text-xs font-semibold text-card-foreground transition-colors hover:border-[color:var(--accent)]/40 hover:text-[color:var(--accent)]"
-            >
-              {link.label}
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
-          ))}
-        </div>
+        {capabilities?.length ? (
+          <ul className="space-y-2 pt-1 text-sm text-muted-foreground">
+            {capabilities.map((item, itemIndex) => {
+              const Icon = capabilityIcons?.length
+                ? capabilityIcons[itemIndex % capabilityIcons.length]
+                : LockKeyhole
+
+              return (
+                <li key={item} className="flex gap-2">
+                  <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--accent)]" />
+                  <span>{item}</span>
+                </li>
+              )
+            })}
+          </ul>
+        ) : null}
+        {role ? <p className="text-sm font-medium leading-relaxed text-card-foreground">{role}</p> : null}
+        {cta ? <p className="text-sm leading-relaxed text-muted-foreground">{cta}</p> : null}
+        {links.length ? (
+          <div className="flex flex-wrap items-center gap-2 pt-2">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-3 py-2 text-xs font-semibold text-card-foreground transition-colors hover:border-[color:var(--accent)]/40 hover:text-[color:var(--accent)]"
+              >
+                {link.label}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            ))}
+          </div>
+        ) : null}
       </div>
     </details>
   )
@@ -351,7 +445,7 @@ function RepositoryCard({
 export async function PortfolioPageContent({ locale }: PortfolioPageContentProps) {
   const copy = heroCopy[locale]
   const showcase = showcaseDetails[locale]
-  const projects = await getFeaturedGitHubProjects(7)
+  const projects = sortFeaturedRepos(await getFeaturedGitHubProjects(30))
   const stats = summarizeGitHubProjects(projects)
 
   return (
@@ -400,6 +494,17 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
           summary={showcase.xoco.summary}
           body={showcase.xoco.body}
           links={showcase.xoco.links}
+        />
+        <ProjectShowcaseCard
+          badge={showcase.criptec.badge}
+          title={showcase.criptec.title}
+          summary={showcase.criptec.summary}
+          body={showcase.criptec.body}
+          links={showcase.criptec.links}
+          capabilities={showcase.criptec.capabilities}
+          role={showcase.criptec.role}
+          cta={showcase.criptec.cta}
+          capabilityIcons={[MessageSquareText, ShieldCheck, RefreshCw, Workflow, LockKeyhole]}
         />
         <ProjectShowcaseCard
           badge={copy.conceptProject}

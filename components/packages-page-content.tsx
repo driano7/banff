@@ -1,4 +1,4 @@
-import { ArrowUpRight, CheckCircle2, Mail, XCircle } from "lucide-react"
+import { ArrowUpRight, CheckCircle2, LayoutGrid, Mail, RefreshCw, Search, Target, XCircle } from "lucide-react"
 
 import { HeadingTypewriter } from "@/components/heading-typewriter"
 import { MinimalWhatsappIcon } from "@/components/icons/minimal-whatsapp-icon"
@@ -17,6 +17,8 @@ const packageChipSurfaces = [
   "bg-gradient-to-br from-sky-400/20 via-background to-accent/10 text-sky-700 border-sky-400/20 dark:text-sky-200",
   "bg-gradient-to-br from-emerald-400/20 via-background to-accent/10 text-emerald-700 border-emerald-400/20 dark:text-emerald-200",
 ] as const
+
+const packageFactIcons = [Target, LayoutGrid, RefreshCw, Search] as const
 
 type PackagesPageContentProps = {
   locale: Locale
@@ -93,7 +95,11 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
 
       <section className="mt-10 grid gap-4 md:grid-cols-2">
         {visiblePackages.map((card, index) => (
-            <ScrollReveal key={card.title} direction={index % 2 === 0 ? "up" : "down"} delay={0.02 + index * 0.04}>
+          <ScrollReveal
+            key={card.title}
+            direction={index % 2 === 0 ? "up" : "down"}
+            delay={0.12 + index * 0.18}
+          >
             <article
               className={`rounded-[2rem] border border-border/70 bg-card/75 p-3 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] transition ${
                 index === 1 ? "md:translate-y-4" : ""
@@ -116,14 +122,19 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
                     </div>
 
                     <div className="grid gap-2 sm:grid-cols-2">
-                      {card.facts.map((fact) => (
-                        <div key={`${card.title}-${fact.label}`} className="rounded-2xl border border-border/60 bg-background/70 p-3">
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-muted-foreground underline decoration-[color:var(--accent)] decoration-2 underline-offset-4">
-                            {fact.label}
-                          </p>
-                          <p className="mt-1 text-sm font-medium leading-6 text-foreground">{fact.value}</p>
-                        </div>
-                      ))}
+                      {card.facts.map((fact, factIndex) => {
+                        const Icon = packageFactIcons[factIndex % packageFactIcons.length]
+
+                        return (
+                          <div key={`${card.title}-${fact.label}`} className="rounded-2xl border border-border/60 bg-background/70 p-3">
+                            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-muted-foreground underline decoration-[color:var(--accent)] decoration-2 underline-offset-4">
+                              <Icon className="h-3.5 w-3.5 shrink-0 text-[color:var(--accent)] no-underline" />
+                              <span>{fact.label}</span>
+                            </div>
+                            <p className="mt-1 text-sm font-medium leading-6 text-foreground">{fact.value}</p>
+                          </div>
+                        )
+                      })}
                     </div>
 
                     <div className="grid gap-3 pt-1">
@@ -160,11 +171,11 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
                   </div>
                 </div>
               </article>
-            </ScrollReveal>
+          </ScrollReveal>
         ))}
       </section>
 
-      <ScrollReveal direction="up" className="mt-8">
+      <ScrollReveal direction="up" delay={0.46} className="mt-8">
         <section className="rounded-[2rem] border border-border/60 bg-card/80 p-5 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] dark:bg-card/70 md:p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl space-y-2">
