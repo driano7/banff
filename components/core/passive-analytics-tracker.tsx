@@ -13,7 +13,7 @@ import {
   resolveReferrerHost,
   resolveUtmParams,
   isLikelyBot,
-} from "@/lib/analytics"
+} from "@/lib/analytics/utils"
 import type { AnalyticsEventType } from "@/lib/analytics/types"
 
 type TrackerSnapshot = {
@@ -190,4 +190,3 @@ export function PassiveAnalyticsTracker() {
 
   return null
 }
-
