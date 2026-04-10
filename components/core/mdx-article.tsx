@@ -14,8 +14,8 @@ export function MdxArticle({ title, excerpt, html }: MdxArticleProps) {
         className="opacity-100 mix-blend-soft-light"
         quantity={140}
         accentRatio={0.28}
-        baseColor="125, 112, 100"
-        accentColor="217, 159, 104"
+        baseColor="86, 122, 100"
+        accentColor="20, 102, 72"
         opacity={0.95}
       />
       <div className="relative space-y-5">

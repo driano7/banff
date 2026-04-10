@@ -1,12 +1,11 @@
 import { ImageResponse } from "next/og"
 
-import { getSiteUrl, SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo"
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo"
 import BanffDark from "../BanffOscuro.jpeg"
 
 export const runtime = "edge"
 
 export default function OpenGraphImage() {
-  const siteUrl = getSiteUrl()
   const logoImage = BanffDark.src
 
   return new ImageResponse(
@@ -85,7 +84,7 @@ export default function OpenGraphImage() {
               fontWeight: 800,
             }}
           >
-            Banff Studio technology and professional development
+            Binff technology and professional development
           </h1>
           <p style={{ margin: 0, maxWidth: 680, fontSize: 28, lineHeight: 1.35, color: "rgba(255,255,255,0.8)" }}>
             {SITE_DESCRIPTION}

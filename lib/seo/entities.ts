@@ -2,6 +2,7 @@ import type {
   SeoArticleEntity,
   SeoConfig,
   SeoContactPoint,
+  SeoFaqPageEntity,
   SeoLocalBusinessEntity,
   SeoOrganizationEntity,
   SeoPostalAddress,
@@ -26,7 +27,7 @@ function normalizeAreaServed(value: string | readonly string[] | undefined): str
     return undefined
   }
 
-  return Array.isArray(value) ? [...value] : value
+  return Array.isArray(value) ? [...value] : (value as string)
 }
 
 function normalizeContactPoints(contactPoints: readonly SeoContactPoint[] | undefined) {
@@ -205,6 +206,30 @@ export function buildArticleEntity(
       "@id": organizationId(config),
     },
     inLanguage: input.inLanguage ?? config.site.defaultLocale,
+  }
+}
+
+export interface BuildFaqPageEntityInput {
+  questions: ReadonlyArray<{
+    question: string
+    answer: string
+  }>
+}
+
+export function buildFaqPageEntity(
+  input: BuildFaqPageEntityInput,
+): SeoFaqPageEntity {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: input.questions.map((question) => ({
+      "@type": "Question",
+      name: question.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: question.answer,
+      },
+    })),
   }
 }
 

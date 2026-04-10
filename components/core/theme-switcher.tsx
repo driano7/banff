@@ -11,6 +11,7 @@ export function ThemeSwitcher() {
   const [mounted, setMounted] = React.useState(false)
   const [burstKey, setBurstKey] = React.useState(0)
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const transitionClass = "theme-transition-circle-blur-top-left"
 
   const syncThemeCookie = React.useCallback((value: "dark" | "light") => {
     document.cookie = `NEXT_THEME=${value}; path=/; max-age=31536000; samesite=lax`
@@ -24,6 +25,7 @@ export function ThemeSwitcher() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       document.documentElement.classList.remove("theme-transition")
+      document.documentElement.classList.remove(transitionClass)
     }
   }, [resolvedTheme, syncThemeCookie])
 
@@ -33,14 +35,16 @@ export function ThemeSwitcher() {
     const nextTheme = isDarkMode ? "light" : "dark"
     const root = document.documentElement
     const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const duration = isReducedMotion ? 0 : 495
+    const duration = isReducedMotion ? 0 : 1000
 
     root.classList.add("theme-transition")
+    root.classList.add(transitionClass)
     root.style.setProperty("--theme-transition-duration", `${duration}ms`)
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => {
       root.classList.remove("theme-transition")
+      root.classList.remove(transitionClass)
       root.style.removeProperty("--theme-transition-duration")
     }, duration)
 

@@ -283,7 +283,7 @@ const blogCardsByLocale: Record<Locale, BlogTeaser[]> = {
 export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
     brand: {
-      name: "Banff Studio",
+      name: "Binff",
       tagline: "Websites first for Mexico and Canada.",
     },
     nav: {
@@ -304,26 +304,26 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         "We design and build websites for companies and projects in Canada and Mexico that want to communicate their value better, strengthen their digital presence, and turn prospects into new and better customers in three languages.",
       primaryCta: "Book a call",
       secondaryCta: "See the work",
-      highlightOne: "Bilingual by default",
-      highlightTwo: "Built to convert",
+      highlightOne: "Bespoke by default",
+      highlightTwo: "Built on current tech",
     },
     about: {
       eyebrow: "About us",
       title: "A website studio for multilingual teams.",
       description:
-        "Banff Studio focuses on websites first: clear UX/UI, bilingual delivery, and support for SEO, content, and light marketing. AI, automation, and Web3 stay available when they add real value.",
+        "Binff focuses on websites first: clear UX/UI, bespoke delivery, and support for SEO, content, and light marketing. We avoid simple AI-made templates and build interfaces that feel familiar, use current technology, and can grow with the project.",
       points: [
-        "Websites designed for Mexico and Canada.",
-        "English, French, and Spanish when the project calls for it.",
+        "Custom-built sites, not generic AI templates.",
+        "Interfaces aligned with everyday app gestures.",
+        "Cutting-edge technology chosen for the scope.",
         "SEO, content, and practical marketing support.",
-        "AI, automation, and Web3 as optional integrations.",
       ],
     },
     packages: {
       eyebrow: "Website packages",
       title: "Website packages, without prices for now.",
       description:
-        "Starter and Growth cover the most common website scopes. If your project needs something different, we can quote it separately.",
+        "Starter and Growth cover the most common website scopes. We build custom sites, not simple AI-generated pages, with positioning designed for the web and for AI models. If your project needs something different we can quote it separately.",
       cards: [
         {
           badge: "Starter",
@@ -342,16 +342,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Growth",
           title: "Growth site",
-          summary: "A fuller website for a real business that needs more pages, stronger structure, and room to scale.",
+          summary: "A fuller website for a real business that needs more pages, stronger structure, room to scale, and better visibility on the web and in AI models.",
           facts: [
             { label: "Best for", value: "Growing a real business." },
             { label: "Pages", value: "5 to 10 subpages." },
             { label: "Revisions", value: "3 rounds." },
-            { label: "SEO", value: "Basic indexing." },
+            { label: "SEO", value: "Basic indexing + AI visibility." },
           ],
           includes: ["Up to 15 images", "2 languages (English, French, or Spanish)", "5 POCs/CTAs", "Professional animations", "Google Maps", "Light and dark theme"],
           excludes: ["E-commerce"],
-          note: "Best when the site needs to support ongoing marketing.",
+          note: "Best when the site needs to support ongoing marketing, SEO, and visibility in AI models.",
         },
         {
           badge: "Quote",
@@ -373,21 +373,21 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Services",
       title: "Website-first services for launch and growth.",
       description:
-        "Banff Studio helps teams build websites first, then layer in SEO, content, light marketing, and the occasional app or integration when it genuinely helps the project. If a mobile app is required, it can be quoted separately.",
+        "Binff helps teams build custom websites first, then layer in SEO, content, light marketing, and the occasional app or integration when it genuinely helps the project. The goal is a product that feels familiar to people who use modern apps every day, ranks on the web, and is also readable by AI models, not a simple AI-generated template.",
       cards: [
         {
           title: "Website design",
-          summary: "Clear, bilingual websites with a strong information hierarchy and a simple path from idea to launch.",
+          summary: "Clear, custom websites with strong hierarchy, familiar interaction patterns, and a simple path from idea to launch.",
           deliverables: ["Landing pages", "Business websites", "Campaign pages"],
         },
         {
           title: "SEO and content",
-          summary: "On-page SEO, content structure, and bilingual messaging for sites that need to be found and understood.",
+          summary: "On-page SEO, content structure, and bilingual messaging for sites that need to be found, understood, and surfaced by AI models.",
           deliverables: ["Keyword mapping", "Metadata", "Content outlines"],
         },
         {
           title: "Site modernization",
-          summary: "Refresh older websites with cleaner UX, stronger structure, and better multilingual organization.",
+          summary: "Refresh older websites with cleaner UX, stronger structure, and a more app-like feel.",
           deliverables: ["UX audit", "Information architecture review", "Visual updates"],
         },
         {
@@ -397,7 +397,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Advanced integrations",
-          summary: "AI, automation, and Web3 integrations when the project benefits from them.",
+          summary: "AI, automation, and Web3 integrations when the project benefits from current, high-performance technology and broader AI-model visibility.",
           deliverables: ["Automation flows", "AI assistants", "Web3 integrations"],
         },
       ],
@@ -406,7 +406,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Portfolio",
       title: "Representative project directions, not client case studies.",
       description:
-        "A preview of the kinds of websites and digital products Banff Studio can scope, including bilingual sites and selective mobile work when needed.",
+        "A preview of the kinds of websites and digital products Binff can scope, including custom builds that feel familiar and use current technology when needed.",
       cards: portfolioCardsByLocale.en,
     },
     blog: {
@@ -436,7 +436,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   },
   fr: {
     brand: {
-      name: "Banff Studio",
+      name: "Binff",
       tagline: "Le web d’abord pour le Mexique et le Canada.",
     },
     nav: {
@@ -457,26 +457,26 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         "Nous concevons et développons des sites web pour des entreprises et des projets au Canada et au Mexique qui veulent mieux communiquer leur valeur, renforcer leur présence numérique et convertir des prospects en nouveaux meilleurs clients en trois langues.",
       primaryCta: "Planifier un appel",
       secondaryCta: "Voir les projets",
-      highlightOne: "Bilingue dès le départ",
-      highlightTwo: "Pensé pour convertir",
+      highlightOne: "Sur mesure par défaut",
+      highlightTwo: "Construit avec des technologies actuelles",
     },
     about: {
       eyebrow: "À propos",
       title: "Un studio web pour les équipes multilingues.",
       description:
-        "Banff Studio se concentre d’abord sur les sites web: UX/UI claire, livraison bilingue, et appui en SEO, contenu et marketing léger. L’IA, l’automatisation et Web3 restent disponibles quand ils apportent une vraie valeur.",
+        "Binff se concentre d’abord sur les sites web: UX/UI claire, livraison sur mesure, et appui en SEO, contenu et marketing léger. Nous évitons les modèles IA simplistes et construisons des interfaces familières, appuyées sur des technologies actuelles, capables d’évoluer avec le projet.",
       points: [
-        "Des sites pensés pour le Mexique et le Canada.",
-        "Anglais, français et espagnol lorsque le projet le demande.",
+        "Des sites sur mesure, pas des modèles IA génériques.",
+        "Des interfaces alignées sur les gestes des applications du quotidien.",
+        "Des technologies actuelles choisies selon le besoin.",
         "SEO, contenu et soutien marketing concret.",
-        "IA, automatisation et Web3 comme intégrations optionnelles.",
       ],
     },
     packages: {
       eyebrow: "Forfaits web",
       title: "Des forfaits web, sans prix pour le moment.",
       description:
-        "Démarrage et Croissance couvrent les besoins web les plus courants. Si votre projet demande autre chose, nous le chiffrons à part.",
+        "Démarrage et Croissance couvrent les besoins web les plus courants. Nous construisons des sites sur mesure, pas de simples pages générées par IA, avec un positionnement pensé pour le web et pour les modèles d’IA. Si votre projet demande autre chose nous le chiffrons à part.",
       cards: [
         {
           badge: "Démarrage",
@@ -495,16 +495,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Croissance",
           title: "Site de croissance",
-          summary: "Un site plus complet pour accompagner une entreprise qui veut grandir.",
+          summary: "Un site plus complet pour accompagner une entreprise qui veut grandir, avec une meilleure visibilité sur le web et dans les modèles d’IA.",
           facts: [
             { label: "Idéal pour", value: "Développer une vraie entreprise." },
             { label: "Pages", value: "5 à 10 sous-pages." },
             { label: "Révisions", value: "3 rondes." },
-            { label: "SEO", value: "Indexation de base." },
+            { label: "SEO", value: "Indexation de base + visibilité IA." },
           ],
           includes: ["Jusqu’à 15 images", "2 langues (anglais, français ou espagnol)", "5 POCs/CTAs", "Animations professionnelles", "Google Maps", "Thème clair et sombre"],
           excludes: ["E-commerce"],
-          note: "Idéal pour soutenir un marketing continu.",
+          note: "Idéal pour soutenir un marketing continu, le SEO et la visibilité dans les modèles d’IA.",
         },
         {
           badge: "Devis",
@@ -526,21 +526,21 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Prestations",
       title: "Des prestations pensées d’abord pour le web.",
       description:
-        "Banff Studio aide les équipes à construire des sites web, puis à ajouter du SEO, du contenu, un peu de marketing et, si nécessaire, des apps ou des intégrations. Si une application mobile est nécessaire, elle peut être chiffrée à part.",
+        "Binff aide les équipes à construire des sites web sur mesure, puis à ajouter du SEO, du contenu, un peu de marketing et, si nécessaire, des apps ou des intégrations. Le résultat doit sembler familier aux personnes qui utilisent déjà des applications modernes, se positionner sur le web, et aussi être lisible par les modèles d’IA, pas à un simple gabarit généré par IA.",
       cards: [
         {
           title: "Conception web",
-          summary: "Des sites bilingues avec une hiérarchie claire et une trajectoire simple de l’idée au lancement.",
+          summary: "Des sites sur mesure avec une hiérarchie claire, des interactions familières et une trajectoire simple de l’idée au lancement.",
           deliverables: ["Pages d’atterrissage", "Sites d’entreprise", "Pages de campagne"],
         },
         {
           title: "SEO et contenu",
-          summary: "SEO on-page, structure de contenu et messages bilingues pour des sites faciles à trouver et à comprendre.",
+          summary: "SEO on-page, structure de contenu et messages bilingues pour des sites faciles à trouver, à comprendre et à faire remonter par les modèles d’IA.",
           deliverables: ["Cartographie de mots-clés", "Métadonnées", "Plans de contenu"],
         },
         {
           title: "Modernisation de site",
-          summary: "Refaire d’anciens sites avec une UX plus claire, une structure plus solide et une meilleure organisation multilingue.",
+          summary: "Refaire d’anciens sites avec une UX plus claire, une structure plus solide et une sensation plus proche des apps actuelles.",
           deliverables: ["Audit UX", "Revue de l’architecture de l’information", "Mises à jour visuelles"],
         },
         {
@@ -550,7 +550,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Intégrations avancées",
-          summary: "IA, automatisation et Web3 quand le projet en tire une vraie valeur.",
+          summary: "IA, automatisation et Web3 quand le projet en tire une vraie valeur, avec des technologies actuelles et une meilleure lisibilité pour les modèles d’IA.",
           deliverables: ["Flux d’automatisation", "Assistants IA", "Intégrations Web3"],
         },
       ],
@@ -559,7 +559,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Portfolio",
       title: "Des directions de projet représentatives, pas des cas clients.",
       description:
-        "Un aperçu des sites web et produits numériques que Banff Studio peut cadrer, y compris des sites bilingues et des apps sélectives quand il le faut.",
+        "Un aperçu des sites web et produits numériques que Binff peut cadrer, y compris des builds sur mesure qui restent familiers et s’appuient sur des technologies actuelles.",
       cards: portfolioCardsByLocale.fr,
     },
     blog: {
@@ -589,7 +589,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   },
   es: {
     brand: {
-      name: "Banff Studio",
+      name: "Binff",
       tagline: "Sitios web primero para México y Canadá.",
     },
     nav: {
@@ -610,26 +610,26 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         "Diseñamos y desarrollamos sitios web para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales en nuevos y mejores clientes de manera trilingüe.",
       primaryCta: "Agendar llamada",
       secondaryCta: "Ver proyectos",
-      highlightOne: "Bilingüe desde el inicio",
-      highlightTwo: "Pensado para convertir",
+      highlightOne: "Hecho a medida",
+      highlightTwo: "Construido con tecnología actual",
     },
     about: {
       eyebrow: "Sobre nosotros",
       title: "Un estudio web para equipos multilingües.",
       description:
-        "Diseñamos y desarrollamos sitios web para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales en nuevos y mejores clientes.",
+        "Diseñamos y desarrollamos sitios web a tu medida para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales con interfaces familiares y tecnología actual.",
       points: [
-        "Sitios pensados para México y Canadá.",
-        "Inglés, francés y español cuando el proyecto lo pide.",
+        "Sitios a medida, no plantillas genéricas hechas con AI.",
+        "Interfaces alineadas con los gestos de las apps cotidianas.",
+        "Tecnología actual elegida según el alcance.",
         "SEO, contenido y apoyo de marketing práctico.",
-        "AI, automatización y Web3 como integraciones opcionales.",
       ],
     },
     packages: {
       eyebrow: "Paquetes web",
       title: "Paquetes web sin precios por ahora.",
       description:
-        "Inicio y Crecimiento cubren los alcances web más comunes. Si tu proyecto necesita algo distinto, lo cotizamos aparte.",
+        "Inicio y Crecimiento cubren los alcances web más comunes. Construimos sitios a medida, no páginas simples hechas con AI, con posicionamiento pensado para la web y para modelos de AI. Si tu proyecto necesita algo distinto, lo cotizamos aparte.",
       cards: [
         {
           badge: "Inicio",
@@ -648,16 +648,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Crecimiento",
           title: "Sitio de crecimiento",
-          summary: "Un sitio más completo para acompañar a un negocio real que necesita más recorrido.",
+          summary: "Un sitio más completo para acompañar a un negocio real que necesita más recorrido, mejor visibilidad en la web y en modelos de AI.",
           facts: [
             { label: "Ideal para", value: "Hacer crecer un negocio real." },
             { label: "Páginas", value: "5 a 10 subpáginas." },
             { label: "Revisiones", value: "3 rondas." },
-            { label: "SEO", value: "Indexación básica." },
+            { label: "SEO", value: "Indexación básica + visibilidad AI." },
           ],
           includes: ["Hasta 15 imágenes", "2 idiomas (inglés, francés o español)", "5 POCs/CTAs", "Animaciones profesionales", "Google Maps", "Tema claro y oscuro"],
           excludes: ["E-commerce"],
-          note: "Ideal cuando el sitio debe apoyar marketing continuo.",
+          note: "Ideal cuando el sitio debe apoyar marketing continuo, SEO y visibilidad en modelos de AI.",
         },
         {
           badge: "Cotización",
@@ -679,21 +679,21 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Servicios",
       title: "Servicios pensados primero para web.",
       description:
-        "Banff Studio ayuda a los equipos a construir sitios web y luego a sumar SEO, contenido, algo de marketing y, cuando hace falta, apps o integraciones. Si se requiere una app móvil, se puede cotizar por separado.",
+        "Binff ayuda a los equipos a construir sitios web a medida y luego a sumar SEO, contenido, algo de marketing y, cuando hace falta, apps o integraciones. El resultado debe sentirse familiar para personas que usan apps modernas todos los días, posicionarse en la web y ser legible para modelos de AI, no como una plantilla simple generada por AI.",
       cards: [
         {
           title: "Diseño web",
-          summary: "Sitios bilingües con jerarquía clara y una ruta simple desde la idea hasta el lanzamiento.",
+          summary: "Sitios a medida con jerarquía clara, interacciones familiares y una ruta simple desde la idea hasta el lanzamiento.",
           deliverables: ["Landing pages", "Sitios corporativos", "Páginas de campaña"],
         },
         {
           title: "SEO y contenido",
-          summary: "SEO on-page, estructura de contenido y mensajes bilingües para sitios fáciles de encontrar y de entender.",
+          summary: "SEO on-page, estructura de contenido y mensajes bilingües para sitios fáciles de encontrar, de entender y de mostrar a modelos de AI.",
           deliverables: ["Mapa de keywords", "Metadatos", "Esquemas de contenido"],
         },
         {
           title: "Modernización de sitios",
-          summary: "Renovamos sitios antiguos con mejor UX, estructura más sólida y una organización multilingüe más clara.",
+          summary: "Renovamos sitios antiguos con mejor UX, estructura más sólida y una sensación más cercana a las apps actuales.",
           deliverables: ["Auditoría UX", "Revisión de arquitectura de la información", "Actualizaciones visuales"],
         },
         {
@@ -703,7 +703,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Integraciones avanzadas",
-          summary: "AI, automatización y Web3 cuando el proyecto sí se beneficia de ellas.",
+          summary: "AI, automatización y Web3 cuando el proyecto sí se beneficia de ellas, usando tecnología actual y con mejor lectura para modelos de AI.",
           deliverables: ["Flujos de automatización", "Asistentes AI", "Integraciones Web3"],
         },
       ],
@@ -712,7 +712,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       eyebrow: "Portafolio",
       title: "Direcciones de proyecto representativas, no casos de clientes.",
       description:
-        "Una vista previa de los sitios web y productos digitales que Banff Studio puede plantear, incluidos sitios bilingües y apps selectivas cuando hagan falta.",
+        "Una vista previa de los sitios web y productos digitales que Binff puede plantear, incluidos builds a medida que se sienten familiares y usan tecnología actual.",
       cards: portfolioCardsByLocale.es,
     },
     blog: {

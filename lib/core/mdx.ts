@@ -1,6 +1,8 @@
 import fs from "node:fs"
 import path from "node:path"
 
+import type { Locale } from "@/lib/site-content"
+
 // MIXED: local MDX content is client-owned editorial material, while the parser/renderer is reusable framework code.
 // AGENCY_OWNED: parser, escaping, and render helpers are reusable across client content sources.
 export type MdxDocument = {
@@ -10,6 +12,7 @@ export type MdxDocument = {
 }
 
 export type MdxFrontmatter = {
+  locale?: Locale
   title?: string
   excerpt?: string
   slug?: string
@@ -17,6 +20,38 @@ export type MdxFrontmatter = {
   readTime?: string
   category?: string
   tags?: string[]
+  primaryKeyword?: string
+  secondaryKeywords?: string[]
+  searchIntent?: string
+  entities?: string[]
+  semanticRelations?: string[]
+  llmSummary?: string
+  snippetTakeaway?: string
+  faq?: Array<{
+    question: string
+    answer: string
+  }>
+  internalLinks?: Array<{
+    label: string
+    href: string
+    purpose: string
+  }>
+  schemaType?: string
+}
+
+function parseJsonValue(value: string) {
+  const trimmed = value.trim()
+  if (!trimmed) return ""
+
+  if (/^[\[{"]/.test(trimmed) || /^(true|false|null|-?\d+(\.\d+)?)$/.test(trimmed)) {
+    try {
+      return JSON.parse(trimmed)
+    } catch {
+      // Fall through to string handling below.
+    }
+  }
+
+  return trimmed
 }
 
 export function parseFrontmatter(raw: string): { meta: MdxFrontmatter; body: string } {
@@ -33,6 +68,8 @@ export function parseFrontmatter(raw: string): { meta: MdxFrontmatter; body: str
   const frontmatter = trimmed.slice(3, end).trim()
   const body = trimmed.slice(end + 4).trim()
   const meta: MdxFrontmatter = { tags: [] }
+  const jsonArrayKeys = new Set(["tags", "secondaryKeywords", "entities", "semanticRelations"])
+  const jsonObjectArrayKeys = new Set(["faq", "internalLinks"])
 
   for (const line of frontmatter.split("\n")) {
     const colonIndex = line.indexOf(":")
@@ -41,15 +78,58 @@ export function parseFrontmatter(raw: string): { meta: MdxFrontmatter; body: str
     const value = line.slice(colonIndex + 1).trim()
 
     if (key === "tags") {
-      meta.tags = value
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean)
+      const parsed = parseJsonValue(value)
+      meta.tags = Array.isArray(parsed)
+        ? parsed.map((item) => String(item).trim()).filter(Boolean)
+        : String(parsed)
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean)
       continue
     }
 
-    if (key in meta || ["title", "excerpt", "slug", "date", "readTime", "category"].includes(key)) {
-      ;(meta as Record<string, string | string[]>)[key] = value
+    if (jsonArrayKeys.has(key)) {
+      const parsed = parseJsonValue(value)
+      if (Array.isArray(parsed)) {
+        ;(meta as Record<string, string[]>)[key] = parsed.map((item) => String(item).trim()).filter(Boolean)
+      }
+      continue
+    }
+
+    if (jsonObjectArrayKeys.has(key)) {
+      const parsed = parseJsonValue(value)
+      if (Array.isArray(parsed)) {
+        if (key === "faq") {
+          meta.faq = parsed
+            .map((item) => {
+              if (!item || typeof item !== "object") return null
+              const record = item as Record<string, unknown>
+              const question = String(record.question ?? "").trim()
+              const answer = String(record.answer ?? "").trim()
+              if (!question || !answer) return null
+              return { question, answer }
+            })
+            .filter((item): item is NonNullable<typeof item> => Boolean(item))
+        } else {
+          meta.internalLinks = parsed
+            .map((item) => {
+              if (!item || typeof item !== "object") return null
+              const record = item as Record<string, unknown>
+              const label = String(record.label ?? "").trim()
+              const href = String(record.href ?? "").trim()
+              const purpose = String(record.purpose ?? "").trim()
+              if (!label || !href || !purpose) return null
+              return { label, href, purpose }
+            })
+            .filter((item): item is NonNullable<typeof item> => Boolean(item))
+        }
+      }
+      continue
+    }
+
+    if (["locale", "title", "excerpt", "slug", "date", "readTime", "category", "primaryKeyword", "searchIntent", "llmSummary", "snippetTakeaway", "schemaType"].includes(key)) {
+      ;(meta as Record<string, string>)[key] = String(parseJsonValue(value))
+      continue
     }
   }
 
@@ -85,6 +165,18 @@ export function renderMdxToHtml(
   const paragraphClass = options?.centerParagraphs
     ? "mx-auto max-w-3xl text-center leading-7 text-muted-foreground"
     : "leading-7 text-muted-foreground"
+  const centeredHeadingClass = options?.centerParagraphs
+    ? "mx-auto max-w-3xl text-center tracking-tight text-foreground"
+    : "tracking-tight text-foreground"
+  const centeredListClass = options?.centerParagraphs
+    ? "mx-auto my-6 max-w-3xl space-y-3 pl-0 text-center text-muted-foreground"
+    : "my-6 space-y-3 pl-5 text-muted-foreground"
+  const centeredUnorderedListItemClass = options?.centerParagraphs
+    ? "list-disc list-inside leading-7 text-center"
+    : "list-disc leading-7"
+  const centeredOrderedListItemClass = options?.centerParagraphs
+    ? "list-decimal list-inside leading-7 text-center"
+    : "list-decimal leading-7"
 
   const flushParagraph = (buffer: string[]) => {
     if (buffer.length === 0) return
@@ -102,19 +194,19 @@ export function renderMdxToHtml(
     }
 
     if (trimmed.startsWith("### ")) {
-      html.push(`<h3 class="mt-8 text-2xl font-semibold tracking-tight text-foreground">${renderInline(trimmed.slice(4))}</h3>`)
+      html.push(`<h3 class="mt-8 text-2xl font-semibold ${centeredHeadingClass}">${renderInline(trimmed.slice(4))}</h3>`)
       index += 1
       continue
     }
 
     if (trimmed.startsWith("## ")) {
-      html.push(`<h2 class="mt-10 text-center text-3xl font-semibold tracking-tight text-foreground">${renderInline(trimmed.slice(3))}</h2>`)
+      html.push(`<h2 class="mt-10 text-center text-3xl font-semibold ${centeredHeadingClass}">${renderInline(trimmed.slice(3))}</h2>`)
       index += 1
       continue
     }
 
     if (trimmed.startsWith("# ")) {
-      html.push(`<h1 class="mt-10 text-4xl font-semibold tracking-tight text-foreground">${renderInline(trimmed.slice(2))}</h1>`)
+      html.push(`<h1 class="mt-10 text-4xl font-semibold ${centeredHeadingClass}">${renderInline(trimmed.slice(2))}</h1>`)
       index += 1
       continue
     }
@@ -140,8 +232,8 @@ export function renderMdxToHtml(
         index += 1
       }
       html.push(
-        `<ul class="my-6 space-y-3 pl-5 text-muted-foreground">${items
-          .map((item) => `<li class="list-disc leading-7">${renderInline(item)}</li>`)
+        `<ul class="${centeredListClass}">${items
+          .map((item) => `<li class="${centeredUnorderedListItemClass}">${renderInline(item)}</li>`)
           .join("")}</ul>`,
       )
       continue
@@ -154,8 +246,8 @@ export function renderMdxToHtml(
         index += 1
       }
       html.push(
-        `<ol class="my-6 space-y-3 pl-5 text-muted-foreground">${items
-          .map((item) => `<li class="list-decimal leading-7">${renderInline(item)}</li>`)
+        `<ol class="${centeredListClass}">${items
+          .map((item) => `<li class="${centeredOrderedListItemClass}">${renderInline(item)}</li>`)
           .join("")}</ol>`,
       )
       continue

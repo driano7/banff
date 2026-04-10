@@ -16,9 +16,9 @@ export function SiteParticleBackground({ theme }: SiteParticleBackgroundProps) {
         quantity={320}
         speed={0.168}
         accentRatio={0.24}
-        baseColor={isDark ? "191, 196, 206" : "83, 72, 63"}
-        accentColor={isDark ? "235, 151, 72" : "246, 185, 138"}
-        opacity={isDark ? 0.72 : 0.92}
+        baseColor={isDark ? "255, 187, 117" : "214, 122, 44"}
+        accentColor={isDark ? "255, 226, 192" : "255, 154, 72"}
+        opacity={isDark ? 0.7 : 0.9}
       />
     </div>
   )

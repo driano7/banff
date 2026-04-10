@@ -11,40 +11,40 @@ const aboutCopy = {
   en: {
     title: "About Us",
     description:
-      "We create bilingual websites with clear UX/UI, multilingual structure, and practical support for SEO, content, and light marketing.",
+      "We create bespoke bilingual websites and digital products with clear UX/UI, multilingual structure, and practical support for SEO, content, and light marketing. We avoid simple AI-made templates and build around familiar interactions and current technology.",
     panelDescription:
-      "We create bilingual websites and mobile products shaped by UX/UI, product thinking, AI, and execution that is compatible with Web3.",
+      "We create bilingual websites and mobile products shaped by UX/UI, product thinking, AI, and execution that is compatible with Web3. The result should feel familiar to everyday users, but still be custom-built and technically current.",
     points: [
-      "Websites designed for Mexico and Canada.",
-      "English, French, and Spanish when the project calls for it.",
+      "Custom-built sites, not generic AI templates.",
+      "Interfaces aligned with everyday app gestures.",
+      "Cutting-edge technology chosen for the scope.",
       "SEO, content, and practical marketing support.",
-      "AI, automation, and Web3 as optional integrations.",
     ],
   },
   fr: {
     title: "À propos de nous",
     description:
-      "Nous créons des sites web bilingues avec une UX/UI claire, une structure multilingue et un soutien concret en SEO, contenu et marketing léger.",
+      "Nous créons des sites web et des produits numériques bilingues sur mesure avec une UX/UI claire, une structure multilingue et un soutien concret en SEO, contenu et marketing léger. Nous évitons les modèles IA simplistes et construisons autour d’interactions familières et de technologies actuelles.",
     panelDescription:
-      "Nous créons des sites web et des produits mobiles bilingues pensés autour de l’UX/UI, du produit, de l’IA et d’une exécution compatible avec Web3.",
+      "Nous créons des sites web et des produits mobiles bilingues pensés autour de l’UX/UI, du produit, de l’IA et d’une exécution compatible avec Web3. Le résultat doit rester familier pour les utilisateurs du quotidien, tout en étant sur mesure et techniquement actuel.",
     points: [
-      "Des sites pensés pour le Mexique et le Canada.",
-      "Anglais, français et espagnol lorsque le projet le demande.",
+      "Des sites sur mesure, pas des modèles IA génériques.",
+      "Des interfaces alignées sur les gestes des applications du quotidien.",
+      "Des technologies actuelles choisies selon le besoin.",
       "SEO, contenu et soutien marketing concret.",
-      "IA, automatisation et Web3 comme intégrations optionnelles.",
     ],
   },
   es: {
     title: "Sobre nosotros",
     description:
-      "Diseñamos y desarrollamos sitios web para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales en nuevos y mejores clientes.",
+      "Diseñamos y desarrollamos sitios web y productos digitales a medida para empresas y proyectos de Canadá y México que buscan comunicar mejor su valor, fortalecer su presencia digital y concretar ventas potenciales con interfaces familiares y tecnología actual. Evitamos plantillas simples hechas con AI.",
     panelDescription:
-      "Creamos sitios web y productos móviles bilingües pensados desde UX/UI, producto, AI y una ejecución compatible con Web3.",
+      "Creamos sitios web y productos móviles bilingües pensados desde UX/UI, producto, AI y una ejecución compatible con Web3. El resultado debe sentirse familiar para las personas que ya usan apps todos los días, pero seguir siendo a medida y técnicamente actual.",
     points: [
-      "Sitios pensados para México y Canadá.",
-      "Inglés, francés y español cuando el proyecto lo pide.",
+      "Sitios a medida, no plantillas genéricas hechas con AI.",
+      "Interfaces alineadas con los gestos de las apps cotidianas.",
+      "Tecnología actual elegida según el alcance.",
       "SEO, contenido y apoyo de marketing práctico.",
-      "AI, automatización y Web3 como integraciones opcionales.",
     ],
   },
 } as const
@@ -53,21 +53,21 @@ const aboutCopy = {
 const whyMattersCopy = {
   en: {
     title: "Why it matters",
-    items: ["Clear message.", "Useful interfaces.", "Fast execution with room to grow."],
+    items: ["Custom, not generic AI templates.", "Familiar interactions.", "Current technology with room to grow."],
     quote:
-      "The goal is not to launch something just to look good. The goal is to launch a product that is easy to understand, easy to use, and useful for the business.",
+      "The goal is not to launch something that merely looks produced. The goal is to launch a product that feels familiar, works cleanly, and is useful for the business.",
   },
   fr: {
     title: "Pourquoi c’est important",
-    items: ["Un message clair.", "Des interfaces utiles.", "Une exécution rapide avec de la place pour évoluer."],
+    items: ["Sur mesure, pas des modèles IA génériques.", "Des interactions familières.", "Des technologies actuelles avec de la place pour évoluer."],
     quote:
-      "L’objectif n’est pas de lancer quelque chose juste pour que ce soit joli. L’objectif est de lancer un produit facile à comprendre, facile à utiliser et utile pour l’entreprise.",
+      "L’objectif n’est pas de lancer quelque chose qui a seulement l’air produit. L’objectif est de lancer un produit familier, propre à l’usage et réellement utile pour l’entreprise.",
   },
   es: {
     title: "Por qué importa",
-    items: ["Un mensaje claro.", "Interfaces útiles.", "Ejecución rápida con espacio para crecer."],
+    items: ["A medida, no plantillas genéricas hechas con AI.", "Interacciones familiares.", "Tecnología actual con espacio para crecer."],
     quote:
-      "El objetivo no es lanzar algo solo para verse bien. El objetivo es lanzar un producto fácil de entender, fácil de usar y útil para el negocio.",
+      "El objetivo no es lanzar algo que solo parezca hecho. El objetivo es lanzar un producto familiar, limpio en el uso y útil para el negocio.",
   },
 } as const
 
@@ -76,7 +76,7 @@ const howWeWorkCopy = {
   en: {
     title: "How we work",
     description:
-      "We start by understanding the project goal, define a clear direction, and develop a website solution that feels careful, functional, and ready to grow.",
+      "We start by understanding the project goal, define a clear direction, and develop a website solution that feels careful, functional, familiar, and ready to grow.",
     steps: [
       {
         title: "We listen to the context.",
@@ -84,18 +84,18 @@ const howWeWorkCopy = {
       },
       {
         title: "We define the direction.",
-        text: "We organize content, structure, and visual focus so the site has commercial clarity.",
+        text: "We organize content, structure, and interaction patterns so the site feels familiar to people who already use modern apps.",
       },
       {
         title: "We build and refine.",
-        text: "We create a clean, professional experience prepared to evolve with your project.",
+        text: "We create a clean, professional experience on current technology, prepared to evolve with your project.",
       },
     ],
   },
   fr: {
     title: "Comment nous travaillons",
     description:
-      "Nous commençons par comprendre l’objectif du projet, nous définissons une direction claire et nous développons une solution web soignée, fonctionnelle et prête à évoluer.",
+      "Nous commençons par comprendre l’objectif du projet, nous définissons une direction claire et nous développons une solution web soignée, fonctionnelle, familière et prête à évoluer.",
     steps: [
       {
         title: "Nous écoutons le contexte.",
@@ -103,18 +103,18 @@ const howWeWorkCopy = {
       },
       {
         title: "Nous définissons la direction.",
-        text: "Nous structurons le contenu, l’architecture et l’orientation visuelle pour que le site soit clair commercialement.",
+        text: "Nous structurons le contenu, l’architecture et les interactions pour que le site paraisse familier aux personnes qui utilisent déjà des apps modernes.",
       },
       {
         title: "Nous développons et affinons.",
-        text: "Nous créons une expérience propre, professionnelle et prête à évoluer avec votre projet.",
+        text: "Nous créons une expérience propre, professionnelle, basée sur des technologies actuelles et prête à évoluer avec votre projet.",
       },
     ],
   },
   es: {
     title: "Cómo trabajamos",
     description:
-      "Empezamos por entender el objetivo del proyecto, definimos una dirección clara y desarrollamos una solución web cuidada, funcional y lista para crecer.",
+      "Empezamos por entender el objetivo del proyecto, definimos una dirección clara y desarrollamos una solución web cuidada, funcional, familiar y lista para crecer.",
     steps: [
       {
         title: "Escuchamos el contexto.",
@@ -122,11 +122,11 @@ const howWeWorkCopy = {
       },
       {
         title: "Definimos la dirección.",
-        text: "Ordenamos contenido, estructura y enfoque visual para que el sitio tenga claridad comercial.",
+        text: "Ordenamos contenido, estructura e interacciones para que el sitio se sienta familiar para personas que ya usan apps modernas.",
       },
       {
         title: "Desarrollamos y afinamos.",
-        text: "Construimos una experiencia limpia, profesional y preparada para evolucionar con tu proyecto.",
+        text: "Construimos una experiencia limpia, profesional, basada en tecnología actual y preparada para evolucionar con tu proyecto.",
       },
     ],
   },
@@ -136,7 +136,17 @@ type AboutPageContentProps = {
   locale: Locale
 }
 
-function AboutIntroSection({ title, description }: Pick<(typeof aboutCopy)["en"], "title" | "description">) {
+type AboutIntroCopy = {
+  title: string
+  description: string
+}
+
+type AboutFeatureCopy = {
+  description: string
+  points: readonly string[]
+}
+
+function AboutIntroSection({ title, description }: AboutIntroCopy) {
   return (
     <ScrollReveal direction="up">
       {/* CLIENTE_OWNED: localized about copy is site content. */}
@@ -153,7 +163,7 @@ function AboutIntroSection({ title, description }: Pick<(typeof aboutCopy)["en"]
 function AboutFeaturePanel({
   description,
   points,
-}: Pick<(typeof aboutCopy)["en"], "description" | "points">) {
+}: AboutFeatureCopy) {
   return (
     <ScrollReveal direction="up" className="mt-8">
       {/* AGENCY_OWNED: reusable feature-panel layout and motion. */}
@@ -180,8 +190,8 @@ function AboutFeaturePanel({
           <div className="absolute inset-0 rounded-[2rem] bg-white/10 blur-3xl dark:bg-black/25" />
           <div className="relative w-full p-2 sm:p-4">
             {/* CLIENTE_OWNED: studio brand images / identity assets. Confirm authorship and transfer terms in the contract. */}
-            <Image src={BanffLight} alt="Banff Studio logo" priority className="block h-auto w-full dark:hidden" />
-            <Image src={BanffDark} alt="Banff Studio logo" priority className="hidden h-auto w-full dark:block" />
+            <Image src={BanffLight} alt="Binff logo" priority className="block h-auto w-full dark:hidden" />
+            <Image src={BanffDark} alt="Binff logo" priority className="hidden h-auto w-full dark:block" />
           </div>
         </ScrollReveal>
       </section>

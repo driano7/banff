@@ -10,10 +10,13 @@ export const contentType = "image/png"
 function TreeMark() {
   return (
     <svg viewBox="0 0 100 100" width="100%" height="100%" aria-label="Tree apple icon">
-      <path d="M50 12c7 0 12 6 12 13 0 3-1 6-3 8 7 1 12 7 12 14 0 8-6 15-14 15H33c-8 0-14-7-14-15 0-7 5-13 12-14-2-2-3-5-3-8 0-7 5-13 12-13z" fill="#2f855a" />
-      <path d="M44 57h12v28H44z" fill="#8b5a2b" />
-      <path d="M50 53c-6 0-10-4-10-10s4-10 10-10 10 4 10 10-4 10-10 10zm0-6c3 0 5-2 5-4s-2-4-5-4-5 2-5 4 2 4 5 4z" fill="#d6f5d0" opacity="0.95" />
-      <path d="M34 41c0-7 5-12 11-13 1 1 3 1 5 1 2 0 4 0 5-1 6 1 11 6 11 13 0 3-1 6-3 8H37c-2-2-3-5-3-8z" fill="#4caf73" opacity="0.9" />
+      <rect width="100" height="100" rx="26" fill="#eff8ea" />
+      <path d="M50 11L24 54h52L50 11Z" fill="#2f7d32" />
+      <path d="M50 24L30 59h40L50 24Z" fill="#4c9f50" />
+      <path d="M50 40L36 67h28L50 40Z" fill="#6bbf69" />
+      <path d="M43 61h14v24H43z" fill="#8a5a2b" />
+      <rect x="41" y="58" width="18" height="5" rx="2.5" fill="#70461f" />
+      <circle cx="72" cy="28" r="5" fill="#9fd98f" opacity="0.85" />
     </svg>
   )
 }
@@ -28,7 +31,7 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "radial-gradient(circle at 35% 30%, #b7f7d1 0%, #4f8f5f 55%, #10231a 100%)",
+          background: "radial-gradient(circle at 35% 30%, #f6fff1 0%, #d7ecd0 55%, #b7d8af 100%)",
           padding: 18,
           borderRadius: 36,
         }}

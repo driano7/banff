@@ -1,6 +1,3 @@
-import fs from "node:fs"
-import path from "node:path"
-
 // THIRD_PARTY_INTEGRATION: consumes the public GitHub API and README assets to populate portfolio cards.
 export type GitHubRepository = {
   id: number
@@ -14,6 +11,11 @@ export type GitHubRepository = {
   language: string | null
   pushed_at: string
   default_branch: string
+  license?: {
+    key: string | null
+    name: string | null
+    spdx_id: string | null
+  } | null
   owner?: {
     login: string
   }
@@ -45,6 +47,31 @@ async function fetchJson<T>(url: string, timeoutMs: number, init?: RequestInit):
     return (await response.json()) as T
   } catch {
     return null
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId)
+  }
+}
+
+async function isUsableImageUrl(url: string, timeoutMs = 1600) {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+
+  try {
+    const controller = new AbortController()
+    timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+
+    const response = await fetch(url, {
+      method: "HEAD",
+      headers: requestHeaders,
+      signal: controller.signal,
+      next: { revalidate: 3600 },
+    })
+
+    if (!response.ok) return false
+
+    const contentType = response.headers.get("content-type") ?? ""
+    return contentType.startsWith("image/")
+  } catch {
+    return false
   } finally {
     if (timeoutId) clearTimeout(timeoutId)
   }
@@ -132,7 +159,10 @@ async function resolveReadmeCover(owner: string, repo: string, defaultBranch: st
   const candidates = collectMarkdownImageCandidates(markdown)
   if (!candidates.length) return null
 
-  return pickCoverImage(candidates, owner, repo, defaultBranch, readme.path ?? "README.md")
+  const resolved = pickCoverImage(candidates, owner, repo, defaultBranch, readme.path ?? "README.md")
+  if (!resolved) return null
+
+  return (await isUsableImageUrl(resolved)) ? resolved : null
 }
 
 export async function getFeaturedGitHubProjects(limit = 7): Promise<GitHubRepository[]> {
@@ -157,13 +187,14 @@ export async function getFeaturedGitHubProjects(limit = 7): Promise<GitHubReposi
         const defaultBranch = repo.default_branch || "main"
         const readmeCover = await resolveReadmeCover(owner, repo.name, defaultBranch)
         const fallbackCover = `https://opengraph.githubassets.com/1/${owner}/${repo.name}`
+        const validatedFallbackCover = (await isUsableImageUrl(fallbackCover)) ? fallbackCover : null
         const normalizedHomepage =
           repo.name.toLowerCase().includes("xoco") ? "https://xococafe.site" : repo.homepage
 
         return {
           ...repo,
           homepage: normalizedHomepage,
-          coverImageUrl: readmeCover ?? fallbackCover,
+          coverImageUrl: readmeCover ?? validatedFallbackCover,
         }
       }),
     )

@@ -154,6 +154,18 @@ export interface SeoArticleEntity extends SeoEntityBase {
   inLanguage?: string
 }
 
+export interface SeoFaqPageEntity extends SeoEntityBase {
+  "@type": "FAQPage"
+  mainEntity: Array<{
+    "@type": "Question"
+    name: string
+    acceptedAnswer: {
+      "@type": "Answer"
+      text: string
+    }
+  }>
+}
+
 export interface SeoBreadcrumbEntity extends SeoEntityBase {
   "@type": "BreadcrumbList"
   itemListElement: Array<{
@@ -180,8 +192,8 @@ export type SeoJsonLdEntity =
   | SeoWebSiteEntity
   | SeoServiceEntity
   | SeoArticleEntity
+  | SeoFaqPageEntity
   | SeoBreadcrumbEntity
   | SeoLocalBusinessEntity
 
 export type SeoJsonLdInput = SeoJsonLdEntity | readonly SeoJsonLdEntity[]
-

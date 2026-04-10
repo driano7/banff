@@ -77,6 +77,7 @@ function lerp(start: number, end: number, ratio: number) {
 function getPhoneCopy(locale: Locale) {
   const copy = getSiteCopy(locale)
   return {
+    brandName: copy.brand.name,
     title: copy.services.title,
     description: copy.services.description,
   }
@@ -363,7 +364,7 @@ export function ServicesPhoneShowcase({ locale, cards }: ServicesPhoneShowcasePr
                     <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-sky-900/10 dark:from-black/25 dark:to-black/45" />
                     <div className="relative flex h-full flex-col justify-between px-4 pb-3 pt-11 text-slate-900 dark:text-white">
                       <div className="mt-2 space-y-2">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-600 dark:text-white/70">Banff Studio</p>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-600 dark:text-white/70">{copy.brandName}</p>
                         <h3 className="text-lg font-semibold leading-tight">{copy.title}</h3>
                         <p className="text-xs leading-5 text-slate-600 dark:text-white/68">
                           {locale === "es"

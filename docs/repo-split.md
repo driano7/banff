@@ -22,10 +22,13 @@ Regla:
 
 - `components/core/**`
 - `lib/core/**`
+- `lib/analytics/**`
 - `lib/seo/**`
 - `components/seo/**`
 - `components/ui/**`
 - `components/icons/**`
+- `app/api/analytics/**`
+- `app/api/cron/**`
 - `hooks/use-toast.ts`
 - `hooks/use-mobile.ts`
 - `app/layout.tsx`

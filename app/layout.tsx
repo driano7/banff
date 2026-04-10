@@ -4,6 +4,7 @@ import { Fraunces, Inter } from "next/font/google"
 
 import { SiteFooter } from "@/components/core/site-footer"
 import { SiteHeader } from "@/components/core/site-header"
+import { PassiveAnalyticsTracker } from "@/components/core/passive-analytics-tracker"
 import { SiteParticleBackground } from "@/components/core/site-particle-background"
 import { Seo } from "@/components/seo/Seo"
 import { ThemeProvider } from "@/components/core/theme-provider"
@@ -66,15 +67,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/icon",
+        url: "/icon?v=tree",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon",
+        url: "/icon?v=tree",
         media: "(prefers-color-scheme: dark)",
       },
     ],
-    apple: "/apple-icon",
+    apple: "/apple-icon?v=tree",
   },
 }
 
@@ -95,6 +96,7 @@ export default async function RootLayout({
       <body className="relative isolate bg-background text-foreground antialiased">
         <Seo entities={[organizationJsonLd, websiteJsonLd]} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <PassiveAnalyticsTracker />
           <SiteParticleBackground theme={theme} />
           <SiteHeader locale={locale} />
           {children}

@@ -8,12 +8,30 @@ import type { Locale } from "@/lib/site-content"
 // AGENCY_OWNED: reusable metadata types and blog loading helpers.
 export type BlogMeta = {
   slug: string
+  locale?: Locale
   title: string
   excerpt: string
   date: string
   readTime: string
   category: string
   tags: string[]
+  primaryKeyword?: string
+  secondaryKeywords?: string[]
+  searchIntent?: string
+  entities?: string[]
+  semanticRelations?: string[]
+  llmSummary?: string
+  snippetTakeaway?: string
+  faq?: Array<{
+    question: string
+    answer: string
+  }>
+  internalLinks?: Array<{
+    label: string
+    href: string
+    purpose: string
+  }>
+  schemaType?: string
 }
 
 export type BlogPost = BlogMeta & {
@@ -34,11 +52,13 @@ function getLocalizedBlogFilePath(slug: string, locale?: Locale) {
 export function getAllBlogPosts(): BlogMeta[] {
   if (!fs.existsSync(BLOG_DIR)) return []
 
-  return fs
+  const posts: Array<BlogMeta | null> = fs
     .readdirSync(BLOG_DIR)
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => getBlogPostBySlug(file.replace(/\.mdx$/, "")))
-    .filter((post): post is BlogMeta => Boolean(post))
+
+  return posts
+    .filter((post): post is BlogMeta => post !== null)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
@@ -56,12 +76,23 @@ export function getBlogPostBySlug(slug: string, locale?: Locale): BlogPost | nul
 
   return {
     slug: meta.slug,
+    locale: meta.locale,
     title: meta.title,
     excerpt: meta.excerpt,
     date: meta.date,
     readTime: meta.readTime,
     category: meta.category,
     tags: meta.tags ?? [],
+    primaryKeyword: meta.primaryKeyword,
+    secondaryKeywords: meta.secondaryKeywords,
+    searchIntent: meta.searchIntent,
+    entities: meta.entities,
+    semanticRelations: meta.semanticRelations,
+    llmSummary: meta.llmSummary,
+    snippetTakeaway: meta.snippetTakeaway,
+    faq: meta.faq,
+    internalLinks: meta.internalLinks,
+    schemaType: meta.schemaType,
     content: body,
   }
 }

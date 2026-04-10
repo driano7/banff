@@ -13,7 +13,7 @@ import { getSiteCopy } from "@/lib/site-content"
 export function generateMetadata(): Metadata {
   // AGENCY_OWNED: metadata builder, canonical URLs, and social previews are reusable SEO primitives.
   return buildPageMetadata(seoConfig, {
-    title: seoConfig.brand.brandName,
+    title: `${seoConfig.brand.brandName} Studio`,
     description: seoConfig.brand.brandDescription,
     canonicalPath: "/",
     openGraph: {
@@ -63,7 +63,7 @@ export default async function Home() {
           >
             <span className="home-reveal-title__line">
               <span className="bg-gradient-to-b from-white via-white to-zinc-300 bg-clip-text text-transparent dark:from-white dark:via-white dark:to-zinc-400">
-                Banff Studio
+                {copy.brand.name} Studio
               </span>
             </span>
             <span className="home-reveal-title__line mt-10 block sm:mt-12">

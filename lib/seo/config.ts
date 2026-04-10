@@ -12,7 +12,7 @@ function splitList(value: string | undefined) {
 
 export const seoConfig: SeoConfig = {
   brand: {
-    brandName: process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Banff Studio",
+    brandName: process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Binff",
     brandUrl: process.env.NEXT_PUBLIC_BRAND_URL?.trim() || siteUrl,
     brandLogo: process.env.NEXT_PUBLIC_BRAND_LOGO?.trim() || "/apple-icon",
     brandDescription:
@@ -31,8 +31,8 @@ export const seoConfig: SeoConfig = {
     locales: splitList(process.env.NEXT_PUBLIC_SITE_LOCALES).length
       ? splitList(process.env.NEXT_PUBLIC_SITE_LOCALES)
       : ["en", "fr", "es"],
-    titleTemplate: process.env.NEXT_PUBLIC_TITLE_TEMPLATE?.trim() || "%s | Banff Studio",
-    defaultTitle: process.env.NEXT_PUBLIC_DEFAULT_TITLE?.trim() || "Banff Studio",
+    titleTemplate: process.env.NEXT_PUBLIC_TITLE_TEMPLATE?.trim() || "%s | Binff",
+    defaultTitle: process.env.NEXT_PUBLIC_DEFAULT_TITLE?.trim() || "Binff",
     defaultDescription:
       process.env.NEXT_PUBLIC_DEFAULT_DESCRIPTION?.trim() ||
       "Creación de sitios web, SEO técnico y posicionamiento orgánico para empresas y negocios.",

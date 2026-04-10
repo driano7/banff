@@ -6,12 +6,12 @@ Fecha de revisión: 2026-04-07
 
 - Sitio web de Banff Studio orientado a servicios web-first para México y Canadá.
 - Soporta inglés, francés y español.
-- Tiene shell global con header, mobile dock, theme switcher, selector de idioma, footer y fondos animados.
+- Tiene shell global con header, mobile dock, theme switcher, selector de idioma, footer, fondos animados y tracker de analítica pasiva.
 - Usa MDX local para páginas editoriales y blog.
 - Usa SEO técnico propio: metadata, canonical URLs, JSON-LD, breadcrumbs, sitemap y robots.
 - Consume GitHub para poblar portfolio con repositorios públicos.
 - Embebe Google Maps en la página About.
-- No hay backend propio expuesto en `app/api` más allá de rutas de contenido y utilidades del sitio.
+- Hay backend propio en `app/api` para tracking, reportes mensuales y cron de analítica.
 
 ## Integraciones reales detectadas
 
@@ -19,14 +19,14 @@ Fecha de revisión: 2026-04-07
 - GitHub Public API: portfolio dinámico en `lib/github-projects.ts`.
 - Google Maps embed: iframe externo dentro de About.
 - Google/Bing/Facebook site verification: solo metadata basada en variables de entorno.
-- Vercel Analytics: dependencia instalada, pero no encontré montaje activo en el árbol de React.
+- Vercel Analytics: dependencia instalada, pero el sitio usa un tracker propio para analítica pasiva.
 
 ## Lo que no aplica hoy
 
 - Stripe: no existe implementación activa en este repo.
 - Auth: no hay proveedor de autenticación, flujos de login ni middleware de auth.
 - CMS: no hay CMS conectado; el contenido vive en MDX local.
-- Email sending: no hay proveedor de envío; solo `mailto:`, `tel:`, WhatsApp y Telegram como enlaces de contacto.
+- Email sending: no hay proveedor final conectado aún para reportes mensuales; el flujo de email queda listo mediante webhook configurable.
 - Base de datos: no encontré ORM, cliente SQL ni esquema de BD.
 - Payments: no hay checkout, payment intents ni flujos de cobro activos.
 
@@ -56,6 +56,8 @@ Fecha de revisión: 2026-04-07
 | `app/layout.tsx` | AGENCY_OWNED | Shell raíz, SEO global, theme, locale y chrome | Sí | Interno |
 | `app/robots.ts` / `app/sitemap.ts` | AGENCY_OWNED | Archivos SEO generados por helpers | Sí | Interno |
 | `app/[locale]/*` | AGENCY_OWNED | Router i18n y validación de locale | Sí | Interno |
+| `app/api/analytics/**` | AGENCY_OWNED | Ingesta, agregación y reporte mensual de analítica pasiva | Sí | Interno |
+| `app/api/cron/**` | AGENCY_OWNED | Cron mensual para preparar y despachar reportes | Sí | Interno |
 
 ### Mixto
 
@@ -88,10 +90,10 @@ Fecha de revisión: 2026-04-07
 | Google Maps embed | Activo | `components/client/about-page-content.tsx` |
 | MDX local | Activo | `lib/core/mdx.ts`, `lib/core/blog.ts`, `components/core/localized-mdx-page.tsx`, `components/core/blog-article.tsx`, `components/core/mdx-article.tsx` |
 | SEO técnico propio | Activo | `lib/seo/**`, `components/seo/**`, `app/layout.tsx`, `app/robots.ts`, `app/sitemap.ts` |
-| Vercel Analytics | No activo | Dependencia en `package.json`, pero no montada en React |
+| Vercel Analytics | No activo | Dependencia en `package.json`, pero el tracker propio ya cubre analítica pasiva |
 | Stripe | No activo | No hay SDK, variables, webhooks ni checkout en el repo |
 | Auth provider | No activo | No hay auth middleware ni login UI |
-| Email provider | No activo | Solo `mailto:`/contact links; no hay API de envío |
+| Email provider | Pendiente | El cron genera el payload y deja listo el webhook para el proveedor que elijas |
 | CMS | No activo | Contenido local en MDX |
 | Base de datos | No activo | No hay ORM, schema ni cliente de BD |
 

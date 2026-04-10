@@ -1,5 +1,22 @@
 import Link from "next/link"
-import { ArrowUpRight, CalendarClock, ChevronDown, GitFork, Globe2, LockKeyhole, MessageSquareText, RefreshCw, ShieldCheck, Star, Workflow } from "lucide-react"
+import {
+  ArrowUpRight,
+  CalendarClock,
+  CalendarDays,
+  ChevronDown,
+  GitFork,
+  Globe2,
+  Heart,
+  LockKeyhole,
+  MapPinned,
+  MessageSquareText,
+  RefreshCw,
+  Search,
+  ShieldCheck,
+  ShoppingBag,
+  Star,
+  Workflow,
+} from "lucide-react"
 
 import { HeadingTypewriter } from "@/components/core/heading-typewriter"
 import { ScrollReveal } from "@/components/core/scroll-reveal"
@@ -13,10 +30,10 @@ type PortfolioPageContentProps = {
 // MIXED: portfolio narratives are brand/client-facing content, while the cards/layout are reusable agency components.
 // NOTE: mentions of third-party services in portfolio copy are descriptive unless the repo contains active integration code.
 // CLIENTE_OWNED: hero labels and portfolio narrative are site/brand copy.
-const heroCopy: Record<Locale, { eyebrow: string; title: string; description: string; sectionTag: string; showcaseTag: string; recentTag: string; emptyState: string; openRepo: string; openSite: string; updated: string; projectInProgress: string; conceptProject: string; featuredRepos: string; technicalShowcase: string; }> = {
+const heroCopy: Record<Locale, { eyebrow: string; title: string; description: string; sectionTag: string; showcaseTag: string; recentTag: string; emptyState: string; openRepo: string; openSite: string; updated: string; projectInProgress: string; commerceDemoTag: string; conceptProject: string; featuredRepos: string; technicalShowcase: string; repoCodeNote: string; }> = {
   en: {
     eyebrow: "Portfolio",
-    title: "My portfolios and real-time contributions",
+    title: "My portfolio and real-time contributions",
     description:
       "Professional tracking of GitHub activity with a curated selection of recent repositories, project showcases, and bilingual product work.",
     sectionTag: "GitHub Contributions",
@@ -27,9 +44,11 @@ const heroCopy: Record<Locale, { eyebrow: string; title: string; description: st
     openSite: "Open live site",
     updated: "Updated",
     projectInProgress: "Project in progress",
+    commerceDemoTag: "Travel e-commerce demo",
     conceptProject: "Concept project",
     featuredRepos: "Featured recent repositories",
     technicalShowcase: "Technical showcase",
+    repoCodeNote: "Code is available under licensed terms. Some repositories can be cited, while others stay restricted.",
   },
   fr: {
     eyebrow: "Portfolio",
@@ -44,9 +63,11 @@ const heroCopy: Record<Locale, { eyebrow: string; title: string; description: st
     openSite: "Ouvrir le site",
     updated: "Mis à jour",
     projectInProgress: "Projet en cours",
+    commerceDemoTag: "Démo e-commerce voyage",
     conceptProject: "Projet conceptuel",
     featuredRepos: "Dépôts récents en vedette",
     technicalShowcase: "Vitrine technique",
+    repoCodeNote: "Le code est disponible sous licence. Certains dépôts peuvent être cités, d’autres restent restreints.",
   },
   es: {
     eyebrow: "Portafolio",
@@ -61,9 +82,11 @@ const heroCopy: Record<Locale, { eyebrow: string; title: string; description: st
     openSite: "Abrir sitio",
     updated: "Actualizado",
     projectInProgress: "Proyecto en desarrollo",
+    commerceDemoTag: "Demo e-commerce de viajes",
     conceptProject: "Proyecto conceptual",
     featuredRepos: "Repositorios recientes destacados",
     technicalShowcase: "Showcase técnico",
+    repoCodeNote: "El código está disponible bajo licencia. Algunos repositorios se pueden citar y otros permanecen restringidos.",
   },
 }
 
@@ -81,6 +104,23 @@ const showcaseDetails = {
         { href: "https://xococafe.site", label: "Client app demo" },
         { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
+    },
+    banffCommerce: {
+      title: "Banff Commerce - travel agency e-commerce demo",
+      summary:
+        "A booking experience built to turn visits into reservations, with curated destinations, package discovery, and a clean purchase flow.",
+      body:
+        "It shows how we can push your business forward with an e-commerce that helps users search trips, compare packages, save favorites, and complete a reservation in just a few steps. The experience is designed to feel fast, clear, and ready to convert on mobile or desktop.",
+      capabilities: [
+        "Search destinations and travel packages",
+        "Filter by dates, budget, and trip length",
+        "Save favorites and compare options",
+        "Review details, availability, and extras",
+        "Complete checkout in a short booking flow",
+      ],
+      role: "Role: Conversion-focused demo for a travel agency e-commerce experience.",
+      cta: "Built to attract more qualified leads and turn browsing into bookings with less friction.",
+      links: [{ href: "https://banff-commerce.vercel.app", label: "Ver demo" }],
     },
     criptec: {
       title: "Criptec Platform - Web3 content & growth infrastructure",
@@ -125,6 +165,23 @@ const showcaseDetails = {
         { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
     },
+    banffCommerce: {
+      title: "Banff Commerce - démo e-commerce d’agence de voyage",
+      summary:
+        "Une expérience de réservation pensée pour transformer les visites en réservations, avec des destinations sélectionnées, la découverte de forfaits et un parcours d’achat clair.",
+      body:
+        "Elle montre comment nous pouvons faire progresser votre activité avec un e-commerce qui aide les utilisateurs à rechercher des voyages, comparer des forfaits, enregistrer des favoris et finaliser une réservation en quelques étapes. L’expérience est conçue pour être rapide, lisible et orientée conversion sur mobile comme sur desktop.",
+      capabilities: [
+        "Rechercher des destinations et des forfaits",
+        "Filtrer par dates, budget et durée du voyage",
+        "Enregistrer des favoris et comparer les options",
+        "Consulter les détails, la disponibilité et les extras",
+        "Finaliser la réservation dans un parcours court",
+      ],
+      role: "Rôle : démo orientée conversion pour un e-commerce d’agence de voyage.",
+      cta: "Pensé pour générer plus de leads qualifiés et transformer la navigation en réservations avec moins de friction.",
+      links: [{ href: "https://banff-commerce.vercel.app", label: "Voir la démo" }],
+    },
     criptec: {
       title: "Criptec Platform - infrastructure de contenu & croissance Web3",
       badge: "Projet privé",
@@ -167,6 +224,23 @@ const showcaseDetails = {
         { href: "https://xococafe.site", label: "Demo app cliente" },
         { href: "https://github.com/driano7/XocoCafe", label: "Repo Xoco App client" },
       ],
+    },
+    banffCommerce: {
+      title: "Banff Commerce - demo e-commerce para agencia de viajes",
+      summary:
+        "Una experiencia de compra pensada para convertir visitas en reservas, con destinos curados, descubrimiento de paquetes y un flujo de compra claro.",
+      body:
+        "Muestra cómo podemos impulsar tu negocio con un e-commerce que ayuda a los usuarios a buscar viajes, comparar paquetes, guardar favoritos y completar una reserva en pocos pasos. La experiencia está diseñada para sentirse rápida, clara y lista para convertir en móvil o desktop.",
+      capabilities: [
+        "Buscar destinos y paquetes de viaje",
+        "Filtrar por fechas, presupuesto y duración",
+        "Guardar favoritos y comparar opciones",
+        "Revisar detalles, disponibilidad y extras",
+        "Completar el checkout en un flujo corto",
+      ],
+      role: "Rol: demo orientada a conversión para un e-commerce de agencia de viajes.",
+      cta: "Pensado para generar más leads calificados y convertir la navegación en reservas con menos fricción.",
+      links: [{ href: "https://banff-commerce.vercel.app", label: "Ver demo" }],
     },
     criptec: {
       title: "Criptec Platform - infraestructura de contenido y crecimiento Web3",
@@ -233,6 +307,23 @@ function getDisplayProjectName(name: string) {
   return name.toLowerCase() === "portoflio" ? "Portfolio" : name
 }
 
+function isCitableLicense(spdxId: string | null | undefined) {
+  if (!spdxId) return false
+
+  const permissiveLicenses = new Set([
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "CC0-1.0",
+    "Unlicense",
+    "MPL-2.0",
+  ])
+
+  return permissiveLicenses.has(spdxId)
+}
+
 const featuredRepoOrder = ["XocoCafe", "Landing-POS-Client-App", "Portfolio", "museum", "driano7"] as const
 
 function sortFeaturedRepos(projects: GitHubRepository[]) {
@@ -257,11 +348,11 @@ function ProjectShowcaseCard({
   badge: string
   summary: string
   body: string
-  links: Array<{ href: string; label: string }>
-  capabilities?: string[]
+  links: ReadonlyArray<{ href: string; label: string }>
+  capabilities?: ReadonlyArray<string>
   role?: string
   cta?: string
-  capabilityIcons?: Array<typeof LockKeyhole>
+  capabilityIcons?: ReadonlyArray<typeof LockKeyhole>
 }) {
   return (
     <details open className="group rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground shadow-[0_20px_60px_rgba(15,23,42,0.1)] dark:bg-card/70">
@@ -345,10 +436,16 @@ function RepositoryCard({
   label: {
     openRepo: string
     updated: string
+    codeAvailable: string
+    licensed: string
+    citeable: string
+    restricted: string
   }
 }) {
   const hasCover = Boolean(repo.coverImageUrl)
   const displayName = getDisplayProjectName(repo.name)
+  const licenseName = repo.license?.spdx_id ?? repo.license?.name ?? null
+  const citable = isCitableLicense(repo.license?.spdx_id)
   const bars = [24, 40, 58, 76].map((base, barIndex) => {
     const activityBoost = Math.min(22, Math.floor((repo.stargazers_count + repo.forks_count) / (barIndex + 3)))
     return Math.min(92, base + activityBoost)
@@ -403,6 +500,18 @@ function RepositoryCard({
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             {repo.description ?? "Repository without description yet."}
           </p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+              {label.codeAvailable}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+              {licenseName ?? label.licensed}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+              {citable ? label.citeable : label.restricted}
+            </span>
+          </div>
 
           <div className="mt-3 rounded-xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-card-foreground">
             <div className="flex flex-wrap items-center gap-4">
@@ -502,6 +611,17 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
           links={showcase.xoco.links}
         />
         <ProjectShowcaseCard
+          badge={copy.commerceDemoTag}
+          title={showcase.banffCommerce.title}
+          summary={showcase.banffCommerce.summary}
+          body={showcase.banffCommerce.body}
+          links={showcase.banffCommerce.links}
+          capabilities={showcase.banffCommerce.capabilities}
+          role={showcase.banffCommerce.role}
+          cta={showcase.banffCommerce.cta}
+          capabilityIcons={[Search, MapPinned, Heart, CalendarDays, ShoppingBag]}
+        />
+        <ProjectShowcaseCard
           badge={showcase.criptec.badge}
           title={showcase.criptec.title}
           summary={showcase.criptec.summary}
@@ -521,8 +641,11 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
         />
       </div>
 
-      <div className="mt-12 mb-6 flex items-center justify-between gap-3">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{copy.featuredRepos}</h2>
+      <div className="mt-12 mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-3xl space-y-2">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{copy.featuredRepos}</h2>
+          <p className="text-sm leading-6 text-muted-foreground">{copy.repoCodeNote}</p>
+        </div>
         <span className="rounded-full border border-border/60 bg-card/80 px-3 py-1 text-xs font-semibold text-muted-foreground">
           {copy.technicalShowcase}
         </span>
@@ -538,9 +661,13 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
             label={{
               openRepo: copy.openRepo,
               updated: copy.updated,
+              codeAvailable: locale === "es" ? "Código disponible" : locale === "fr" ? "Code disponible" : "Code available",
+              licensed: locale === "es" ? "Licenciado" : locale === "fr" ? "Sous licence" : "Licensed",
+              citeable: locale === "es" ? "Se puede citar" : locale === "fr" ? "Citable" : "Citable",
+              restricted: locale === "es" ? "Cita restringida" : locale === "fr" ? "Citation restreinte" : "Citation restricted",
             }}
           />
-        ))}
+      ))}
       </section>
 
       {projects.length === 0 ? (

@@ -60,9 +60,10 @@ function buildTypingMarkup(heading: HTMLElement) {
 
 type HeadingTypewriterProps = {
   scopeSelector?: string
+  staggerMs?: number
 }
 
-export function HeadingTypewriter({ scopeSelector }: HeadingTypewriterProps) {
+export function HeadingTypewriter({ scopeSelector, staggerMs = 0 }: HeadingTypewriterProps) {
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -70,6 +71,7 @@ export function HeadingTypewriter({ scopeSelector }: HeadingTypewriterProps) {
     if (media.matches) return
 
     let observer: IntersectionObserver | null = null
+    const timeoutIds: number[] = []
 
     const resolveRoot = () => {
       if (!scopeSelector) {
@@ -86,10 +88,11 @@ export function HeadingTypewriter({ scopeSelector }: HeadingTypewriterProps) {
 
       const headings = Array.from(root.querySelectorAll<HTMLElement>(HEADING_SELECTOR))
 
-      headings.forEach((heading) => {
+      headings.forEach((heading, index) => {
         if (heading.dataset.typewriterInit === "true") return
         if (heading.dataset.typewriterSkip === "true") return
 
+        heading.dataset.typewriterOrder = String(index)
         heading.dataset.typewriterInit = "true"
         observer?.observe(heading)
       })
@@ -101,16 +104,24 @@ export function HeadingTypewriter({ scopeSelector }: HeadingTypewriterProps) {
           if (!entry.isIntersecting) return
           const heading = entry.target as HTMLElement
           if (heading.dataset.typewriterPlayed === "true") return
-          heading.classList.add("title-typewriter-ready")
-          const prepared = buildTypingMarkup(heading)
-          if (!prepared) {
-            heading.dataset.typewriterPlayed = "true"
-            observer?.unobserve(heading)
-            return
-          }
+          const order = Number(heading.dataset.typewriterOrder ?? "0")
+          const delay = Math.max(0, order * staggerMs)
+
           heading.dataset.typewriterPlayed = "true"
-          heading.classList.add("title-typewriter-active")
           observer?.unobserve(heading)
+
+          const run = () => {
+            heading.classList.add("title-typewriter-ready")
+            const prepared = buildTypingMarkup(heading)
+            if (!prepared) return
+            heading.classList.add("title-typewriter-active")
+          }
+
+          if (delay > 0) {
+            timeoutIds.push(window.setTimeout(run, delay))
+          } else {
+            run()
+          }
         })
       },
       { threshold: 0.24, rootMargin: "0px 0px -10% 0px" },
@@ -131,8 +142,9 @@ export function HeadingTypewriter({ scopeSelector }: HeadingTypewriterProps) {
     return () => {
       observer?.disconnect()
       mutationObserver.disconnect()
+      timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId))
     }
-  }, [scopeSelector])
+  }, [scopeSelector, staggerMs])
 
   return null
 }

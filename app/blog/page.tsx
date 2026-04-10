@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import type { Metadata } from "next"
 
 import { HeadingTypewriter } from "@/components/core/heading-typewriter"
 import { BlogArticle } from "@/components/core/blog-article"
@@ -9,12 +10,32 @@ import { getLocaleFromCookies } from "@/lib/locale"
 import { renderMdxToHtml } from "@/lib/blog"
 import { readLocalizedMdx } from "@/lib/mdx"
 import { getSiteCopy } from "@/lib/site-content"
+import { buildPageMetadata, seoConfig } from "@/lib/seo"
 
 const blogSurfaces = [
   "from-accent/20 via-background to-primary/10",
   "from-sky-400/20 via-background to-accent/15",
   "from-emerald-400/20 via-background to-accent/15",
 ] as const
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocaleFromCookies()
+  const doc = readLocalizedMdx("blog", locale) ?? readLocalizedMdx("blog", "en")
+
+  if (!doc) {
+    return buildPageMetadata(seoConfig, {
+      title: "Binff Studio Blog",
+      description: seoConfig.brand.brandDescription,
+      canonicalPath: "/blog",
+    })
+  }
+
+  return buildPageMetadata(seoConfig, {
+    title: doc.title,
+    description: doc.excerpt,
+    canonicalPath: "/blog",
+  })
+}
 
 export default async function BlogPage() {
   const locale = await getLocaleFromCookies()

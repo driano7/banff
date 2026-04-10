@@ -40,7 +40,9 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
                 <Home className="h-4 w-4" />
               </span>
             ) : null}
-            <span className="truncate text-sm font-semibold text-foreground sm:text-base">{copy.brand.name}</span>
+            <span className="truncate text-sm font-semibold text-foreground sm:text-base">
+              {copy.brand.name} Studio
+            </span>
           </Link>
 
           <nav className="hidden flex-1 items-center justify-center gap-4 sm:flex lg:gap-6">
