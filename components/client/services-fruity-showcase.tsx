@@ -49,7 +49,7 @@ function AnimatedSceneTitle({
   return (
     <h2
       className={cn(
-        "text-balance font-serif text-4xl leading-[0.98] tracking-tight text-card-foreground sm:text-5xl lg:text-6xl",
+        "text-balance font-serif text-[clamp(2.35rem,8vw,4rem)] leading-[0.98] tracking-tight text-card-foreground sm:text-5xl lg:text-6xl",
         className,
       )}
       style={style}
@@ -552,6 +552,16 @@ function VisibilityVisual({
   strength: number
   reducedMotion: boolean
 }) {
+  const [compact, setCompact] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 639px)")
+    const update = () => setCompact(media.matches)
+    update()
+    media.addEventListener("change", update)
+    return () => media.removeEventListener("change", update)
+  }, [])
+
   return (
     <SceneShell
       className="bg-[#020305] dark:bg-[#010204]"
@@ -564,7 +574,7 @@ function VisibilityVisual({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.02),transparent_26%),linear-gradient(180deg,rgba(2,3,5,1),rgba(2,3,5,1))]" />
         <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]" />
 
-        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden>
+        <svg className="absolute inset-0 h-full w-full" viewBox={compact ? "0 0 1000 860" : "0 0 1000 700"} preserveAspectRatio={compact ? "xMidYMid meet" : "none"} aria-hidden>
           <defs>
             <linearGradient id="visLineA" x1="0" x2="1" y1="0" y2="0">
               <stop offset="0%" stopColor="rgba(255,255,255,0)" />
@@ -592,12 +602,12 @@ function VisibilityVisual({
             </filter>
           </defs>
 
-          <g transform="translate(-154 0)">
+          <g transform={compact ? "translate(-88 72) scale(1.04)" : "translate(-154 0)"}>
             <path
               d="M 624 118 C 744 132, 796 208, 752 274 C 704 346, 676 402, 706 470"
               fill="none"
               stroke="url(#visLineA)"
-              strokeWidth="5"
+              strokeWidth={compact ? "6.8" : "5"}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray="12 16"
@@ -611,7 +621,7 @@ function VisibilityVisual({
               d="M 648 124 C 756 145, 780 214, 742 276 C 702 344, 694 390, 726 458"
               fill="none"
               stroke="url(#visLineB)"
-              strokeWidth="3.6"
+              strokeWidth={compact ? "5" : "3.6"}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray="8 12"
@@ -625,7 +635,7 @@ function VisibilityVisual({
               d="M 610 150 C 714 168, 764 228, 738 288 C 710 353, 704 406, 746 474"
               fill="none"
               stroke="url(#visLineC)"
-              strokeWidth="2.2"
+              strokeWidth={compact ? "3.4" : "2.2"}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray="4 10"
@@ -639,7 +649,7 @@ function VisibilityVisual({
               d="M 614 198 C 726 198, 790 228, 796 278 C 801 325, 778 374, 744 446"
               fill="none"
               stroke="#ff61c6"
-              strokeWidth="1.5"
+              strokeWidth={compact ? "2.4" : "1.5"}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray="2 10"
@@ -774,7 +784,6 @@ function ScenePanel({
   const opacity = visibility < 0.12 ? 0 : lerp(0.65, 1, visibility)
   const lift = lerp(18, 0, clamp(1 - distance, 0, 1))
   const isVisibilityScene = index === 1
-  const titleOffsetStyle = isVisibilityScene ? ({ transform: "translateX(-30%)" } as const) : undefined
 
   return (
     <div
@@ -788,7 +797,9 @@ function ScenePanel({
       <div className="grid h-full items-center gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <div className="space-y-5">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--accent)]">{scene.eyebrow}</p>
-          <AnimatedSceneTitle title={scene.title} active={isActive} style={titleOffsetStyle} />
+          <div className={cn(isVisibilityScene ? "sm:translate-x-[-30%]" : "")}>
+            <AnimatedSceneTitle title={scene.title} active={isActive} />
+          </div>
           <p className="max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">{scene.summary}</p>
           <div className="grid gap-2 sm:max-w-xl sm:grid-cols-3">
             {scene.bullets.map((bullet, bulletIndex) => (
@@ -825,16 +836,12 @@ function MobileSceneCard({
     <section className="rounded-[2rem] border border-border/70 bg-card/96 p-4 shadow-[0_24px_60px_rgba(2,6,23,0.18)] sm:p-5">
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--accent)]">{scene.eyebrow}</p>
-          <AnimatedSceneTitle
-          title={scene.title}
-          active
-          style={index === 1 ? ({ transform: "translateX(-30%)" } as const) : undefined}
-        />
+        <AnimatedSceneTitle title={scene.title} active />
         <p className="mt-3 text-sm leading-7 text-muted-foreground">{scene.summary}</p>
       </div>
 
       <div className="mb-4 rounded-[1.75rem] border border-border/60 bg-background/60">
-        <div className="h-[240px] overflow-hidden sm:h-[280px]">
+        <div className="h-[280px] overflow-hidden sm:h-[280px]">
           {index === 0 ? (
             <ProductBuildVisual strength={1} reducedMotion={reducedMotion} />
           ) : index === 1 ? (
