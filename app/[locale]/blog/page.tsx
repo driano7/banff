@@ -24,6 +24,24 @@ type LocalePageProps = {
   }>
 }
 
+const blogHeroCopy: Record<Locale, { title: string; description: string }> = {
+  en: {
+    title: "Practical notes on SEO, social selling, AI, and websites that still perform after launch.",
+    description:
+      "Articles written in the same editorial system as the rest of the site: clean contrast, warm paper surfaces, and signal accents used sparingly.",
+  },
+  fr: {
+    title: "Notes pratiques sur le SEO, la vente sociale, l’IA, et les sites web qui performent après le lancement.",
+    description:
+      "Articles écrits dans le même système éditorial que le reste du site: contraste net, surfaces papier chaudes, et accents signal utilisés avec mesure.",
+  },
+  es: {
+    title: "Notas prácticas sobre SEO, ventas por redes, IA y sitios web que siguen funcionando después del lanzamiento.",
+    description:
+      "Artículos escritos con el mismo sistema editorial que el resto del sitio: contraste limpio, superficies tipo papel cálidas y acentos de señal usados con medida.",
+  },
+}
+
 function buildBlogAlternates() {
   return {
     languages: Object.fromEntries(locales.map((item) => [item, `/${item}/blog`])) as Record<string, string>,
@@ -75,6 +93,7 @@ export default async function BlogPage({ params }: LocalePageProps) {
   const copy = getSiteCopy(typedLocale)
   const doc = readLocalizedMdx("blog", typedLocale) ?? readLocalizedMdx("blog", "en")
   const posts = copy.blog.cards
+  const heroCopy = blogHeroCopy[typedLocale]
 
   if (!doc) return null
 
@@ -90,10 +109,10 @@ export default async function BlogPage({ params }: LocalePageProps) {
           <div className="space-y-3">
             <p className="font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-stone)]">Binff Studio / Blog</p>
             <h2 className="blog-ink max-w-2xl font-blog-syne text-2xl font-black leading-[0.96] tracking-[-0.05em] sm:text-3xl">
-              Practical notes on SEO, social selling, AI, and websites that still perform after launch.
+              {heroCopy.title}
             </h2>
             <p className="blog-muted max-w-3xl font-blog-syne text-sm leading-7 sm:text-base">
-              Articles written in the same editorial system as the rest of the site: clean contrast, warm paper surfaces, and signal accents used sparingly.
+              {heroCopy.description}
             </p>
           </div>
           <span className="font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-signal)]">

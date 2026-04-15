@@ -144,7 +144,7 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
   const renderGrowthDemoAction = () => (
     <div className="pt-2">
       <Button type="button" size="sm" variant="outline" className="rounded-full border-border/60 bg-background/80">
-        <span className="underline decoration-current decoration-2 underline-offset-4">este sitio es el demo</span>
+        <span className="underline decoration-current decoration-2 underline-offset-4">Este es el sitio demo</span>
         <ArrowUpRight className="h-4 w-4" />
       </Button>
     </div>
