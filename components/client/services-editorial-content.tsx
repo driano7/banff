@@ -229,10 +229,10 @@ export function ServicesLeadPanel({
               {copy.eyebrow}
             </p>
             <div className="space-y-3">
-              <h2 className="max-w-2xl text-balance font-serif text-3xl leading-[1.02] tracking-tight text-card-foreground sm:text-4xl md:text-[2.8rem]">
+              <h2 className="font-display-syne max-w-2xl text-balance text-3xl leading-[1.02] tracking-tight text-card-foreground sm:text-4xl md:text-[2.8rem]">
                 {copy.title}
               </h2>
-              <p className="max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
+              <p className="font-display-syne max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
             </div>
           </div>
 
@@ -265,16 +265,16 @@ export function ServicesLeadPanel({
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                    <p className="font-display-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
                       0{index + 1}
                     </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-card-foreground md:text-xl">{card.title}</h3>
+                    <h3 className="font-display-syne text-lg font-semibold tracking-tight text-card-foreground md:text-xl">{card.title}</h3>
                   </div>
                   <span className="rounded-full border border-border/60 bg-card/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[color:var(--accent)]">
                     {index === 0 ? "Build" : index === 1 ? "Visibility" : "Systems"}
                   </span>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">{card.summary}</p>
+                <p className="font-display-syne mt-3 text-sm leading-7 text-muted-foreground">{card.summary}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-3">
                   {card.deliverables.slice(0, 3).map((deliverable) => (
                     <div
@@ -295,14 +295,14 @@ export function ServicesLeadPanel({
 }
 
 function EditorialParagraph({ children }: { children: ReactNode }) {
-  return <p className="mx-auto max-w-3xl text-center text-sm leading-7 text-muted-foreground md:text-base">{children}</p>
+  return <p className="font-display-syne mx-auto max-w-3xl text-center text-sm leading-7 text-muted-foreground md:text-base">{children}</p>
 }
 
 function EditorialBulletList({ bullets }: { bullets: string[] }) {
   return (
     <ul className="mx-auto grid max-w-3xl gap-2 pt-1 text-center">
       {bullets.map((bullet) => (
-        <li key={bullet} className="flex justify-center gap-3 text-sm leading-7 text-muted-foreground md:text-base">
+        <li key={bullet} className="font-display-syne flex justify-center gap-3 text-sm leading-7 text-muted-foreground md:text-base">
           <span className="mt-2 h-2 w-2 rounded-full bg-[color:var(--accent)]/90" />
           <span>{bullet}</span>
         </li>
@@ -320,7 +320,7 @@ function EditorialSectionBlock({
     <section className="space-y-5">
       <div className="space-y-3 text-center">
         <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[color:var(--accent)]/90">{section.eyebrow}</p>
-        <h3 className="text-balance font-serif text-3xl leading-[1.04] tracking-tight text-card-foreground sm:text-4xl">
+        <h3 className="font-display-syne text-balance text-3xl leading-[1.04] tracking-tight text-card-foreground sm:text-4xl">
           {section.title}
         </h3>
       </div>
@@ -382,10 +382,10 @@ export function ServicesEditorialIntro({
         opacity={0.95}
       />
       <div className="relative space-y-5">
-        <h2 className="text-center font-serif text-4xl leading-[0.96] tracking-tight text-card-foreground sm:text-5xl md:text-6xl">
+        <h2 className="font-display-syne text-center text-4xl leading-[0.96] tracking-tight text-card-foreground sm:text-5xl md:text-6xl">
           {title}
         </h2>
-        <p className="mx-auto max-w-3xl text-center text-base leading-8 text-muted-foreground md:text-lg">{excerpt}</p>
+        <p className="font-display-syne mx-auto max-w-3xl text-center text-base leading-8 text-muted-foreground md:text-lg">{excerpt}</p>
       </div>
     </section>
   )

@@ -116,6 +116,7 @@ export type SiteCopy = {
     whatsapp: string
     phone: string
     emails: string[]
+    instagram: string
     github: string
   }
   footer: {
@@ -449,7 +450,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Growth",
           title: "Growth site",
-          summary: "A fuller website for a real business that needs more pages, stronger structure, room to grow, and better visibility on the web and in AI models.",
+          summary:
+            "A fuller website for a real business that needs more pages, stronger structure, room to grow, and better visibility on the web and in AI models. Our current site is the example.",
           facts: [
             { label: "Best for", value: "Growing a real business." },
             { label: "Pages", value: "5 to 10 subpages." },
@@ -565,6 +567,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       whatsapp: "+1 647 223 0271",
       phone: "+1 647 223 0271",
       emails: ["y@criptec.io", "donovan@criptec.io"],
+      instagram: "https://www.instagram.com/binffstudio/",
       github: "github.com/driano7",
     },
     footer: {
@@ -634,7 +637,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Growth",
           title: "Site Growth",
-          summary: "Un site plus complet pour accompagner une entreprise qui veut grandir, avec une meilleure visibilité sur le web et dans les modèles d’IA.",
+          summary:
+            "Un site plus complet pour accompagner une entreprise qui veut grandir, avec une meilleure visibilité sur le web et dans les modèles d’IA. Notre site actuel sert d’exemple.",
           facts: [
             { label: "Idéal pour", value: "Développer une vraie entreprise." },
             { label: "Pages", value: "5 à 10 sous-pages." },
@@ -750,6 +754,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       whatsapp: "+1 647 223 0271",
       phone: "+1 647 223 0271",
       emails: ["y@criptec.io", "donovan@criptec.io"],
+      instagram: "https://www.instagram.com/binffstudio/",
       github: "github.com/driano7",
     },
     footer: {
@@ -819,7 +824,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         {
           badge: "Growth",
           title: "Sitio Growth",
-          summary: "Un sitio más completo para acompañar a un negocio real que necesita más recorrido, mejor visibilidad en la web y en modelos de AI.",
+          summary:
+            "Un sitio más completo para acompañar a un negocio real que necesita más recorrido, mejor visibilidad en la web y en modelos de AI. Nuestra página actual es el ejemplo.",
           facts: [
             { label: "Ideal para", value: "Hacer crecer un negocio real." },
             { label: "Páginas", value: "5 a 10 subpáginas." },
@@ -935,6 +941,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       whatsapp: "+1 647 223 0271",
       phone: "+1 647 223 0271",
       emails: ["y@criptec.io", "donovan@criptec.io"],
+      instagram: "https://www.instagram.com/binffstudio/",
       github: "github.com/driano7",
     },
     footer: {

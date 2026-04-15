@@ -14,7 +14,7 @@ export const seoConfig: SeoConfig = {
   brand: {
     brandName: process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Binff",
     brandUrl: process.env.NEXT_PUBLIC_BRAND_URL?.trim() || siteUrl,
-    brandLogo: process.env.NEXT_PUBLIC_BRAND_LOGO?.trim() || "/apple-icon",
+    brandLogo: process.env.NEXT_PUBLIC_BRAND_LOGO?.trim() || "/logos/binff_studio_parchment_vermillion.svg",
     brandDescription:
       process.env.NEXT_PUBLIC_BRAND_DESCRIPTION?.trim() ||
       "Agencia especializada en creación de sitios web y SEO técnico para empresas y negocios.",

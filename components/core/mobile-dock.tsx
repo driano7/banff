@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { BookOpenText, BriefcaseBusiness, Menu, PanelsTopLeft, PocketKnife, UserRound, type LucideIcon } from "lucide-react"
+import { BookOpenText, BriefcaseBusiness, PanelsTopLeft, PocketKnife, UserRound, type LucideIcon } from "lucide-react"
 
 import { localizedSectionHref } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
@@ -24,8 +24,8 @@ type DockItem = {
   icon: LucideIcon
 }
 
-// AGENCY_OWNED: mobile navigation dock and collapse behavior.
-// This is a reusable UX pattern that sits alongside the global header shell.
+// AGENCY_OWNED: mobile navigation dock and compact/expanded behavior.
+// This stays visible on mobile and only changes density based on recent interaction.
 export function MobileDock({
   locale,
   aboutLabel,
@@ -35,7 +35,7 @@ export function MobileDock({
   servicesLabel,
 }: MobileDockProps) {
   const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCompact, setIsCompact] = useState(false)
   const collapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const links = useMemo<DockItem[]>(
@@ -49,24 +49,24 @@ export function MobileDock({
     [aboutLabel, blogLabel, locale, packagesLabel, portfolioLabel, servicesLabel],
   )
 
-  const scheduleCollapse = useCallback(() => {
+  const scheduleCompact = useCallback(() => {
     if (collapseTimer.current) clearTimeout(collapseTimer.current)
     collapseTimer.current = setTimeout(() => {
-      setIsCollapsed(true)
-    }, 30_000)
+      setIsCompact(true)
+    }, 20_000)
   }, [])
 
   useEffect(() => {
-    setIsCollapsed(false)
-    scheduleCollapse()
+    setIsCompact(false)
+    scheduleCompact()
     return () => {
       if (collapseTimer.current) clearTimeout(collapseTimer.current)
     }
-  }, [pathname, scheduleCollapse])
+  }, [pathname, scheduleCompact])
 
   const handleDockInteraction = () => {
-    setIsCollapsed(false)
-    scheduleCollapse()
+    setIsCompact(false)
+    scheduleCompact()
   }
 
   return (
@@ -74,40 +74,62 @@ export function MobileDock({
       <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[70] px-4 sm:hidden">
         <nav
           className={cn(
-            "pointer-events-auto relative mx-auto flex w-full max-w-md items-center justify-between gap-1 rounded-[1.55rem] border border-black/10 bg-white/78 px-2 py-1 shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-2xl transition-all duration-300 ease-in-out dark:border-white/10 dark:bg-[rgba(8,10,18,0.86)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)]",
-            isCollapsed ? "scale-0 opacity-0 translate-y-4 pointer-events-none" : "scale-100 opacity-100 translate-y-0",
+            "pointer-events-auto relative mx-auto flex w-full items-center justify-between gap-1 border border-black/10 bg-white/78 shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-2xl transition-all duration-300 ease-in-out dark:border-white/10 dark:bg-[rgba(8,10,18,0.86)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)]",
+            isCompact
+              ? "max-w-[20rem] rounded-[1.35rem] px-1.5 py-1"
+              : "max-w-md rounded-[1.55rem] px-2 py-1.5",
           )}
+          onPointerDownCapture={handleDockInteraction}
+          onFocusCapture={handleDockInteraction}
         >
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-[1.55rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(250,238,222,0.72))] dark:bg-[linear-gradient(135deg,rgba(10,14,22,0.94),rgba(18,22,34,0.82))]"
+            className={cn(
+              "pointer-events-none absolute inset-0 transition-all duration-300",
+              isCompact ? "rounded-[1.35rem]" : "rounded-[1.55rem]",
+              "bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(250,238,222,0.72))] dark:bg-[linear-gradient(135deg,rgba(10,14,22,0.94),rgba(18,22,34,0.82))]",
+            )}
           />
+
           {links.map((item) => {
             const Icon = item.icon
             const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname?.startsWith(item.href + "/")
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 prefetch
                 onClick={handleDockInteraction}
-                className="relative flex flex-1 flex-col items-center justify-center gap-1 py-1"
+                className={cn(
+                  "relative flex flex-1 flex-col items-center justify-center gap-1 rounded-[1.1rem] transition-all duration-300",
+                  isCompact ? "py-0.5" : "py-1",
+                )}
                 aria-label={item.label}
               >
                 <span
                   className={cn(
-                    "inline-flex h-9 w-9 items-center justify-center rounded-2xl border shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-colors",
+                    "inline-flex items-center justify-center rounded-2xl border shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-all duration-300",
+                    isCompact ? "h-8 w-8" : "h-9 w-9",
                     active
-                      ? "border-[color:var(--accent)]/35 bg-[color:var(--accent)]/14 text-[color:var(--accent)] dark:bg-[color:var(--accent)]/16"
+                      ? "border-[#E03A1E]/45 bg-[#E03A1E]/14 text-[#E03A1E] shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_0_0_1px_rgba(224,58,30,0.14),0_10px_24px_rgba(224,58,30,0.34)] dark:bg-[#E03A1E]/16"
                       : "border-black/10 bg-white/78 text-foreground dark:border-white/10 dark:bg-white/6 dark:text-white",
                   )}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon
+                    className={cn(
+                      "transition-all duration-300",
+                      isCompact ? "h-3.5 w-3.5" : "h-4 w-4",
+                      active ? "drop-shadow-[0_0_10px_rgba(224,58,30,0.55)]" : "",
+                    )}
+                  />
                 </span>
+
                 <span
                   className={cn(
-                    "max-w-[4.5rem] truncate text-[9px] font-medium leading-none",
-                    active ? "text-[color:var(--accent)]" : "text-muted-foreground dark:text-white/65",
+                    "max-w-[4.5rem] truncate overflow-hidden text-[9px] font-medium leading-none transition-all duration-300",
+                    isCompact ? "max-h-0 -translate-y-1 opacity-0" : "max-h-4 translate-y-0 opacity-100",
+                    active ? "text-[#E03A1E]" : "text-muted-foreground dark:text-white/65",
                   )}
                 >
                   {item.label}
@@ -118,19 +140,7 @@ export function MobileDock({
         </nav>
       </div>
 
-      <button
-        type="button"
-        aria-label="Show dock"
-        onClick={handleDockInteraction}
-        className={cn(
-          "pointer-events-auto fixed right-4 bottom-6 z-[71] flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/82 text-foreground shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-2xl transition-all duration-300 ease-in-out dark:border-white/10 dark:bg-[rgba(8,10,18,0.84)] dark:text-white dark:shadow-[0_24px_80px_rgba(0,0,0,0.48)] sm:hidden",
-          isCollapsed ? "scale-100 opacity-100" : "scale-0 opacity-0 pointer-events-none",
-        )}
-      >
-        <Menu className="h-5 w-5" />
-      </button>
-
-      <div aria-hidden className="h-[calc(4.4rem+env(safe-area-inset-bottom))] sm:hidden" />
+      <div aria-hidden className="h-[calc(5.5rem+env(safe-area-inset-bottom))] sm:hidden" />
     </>
   )
 }

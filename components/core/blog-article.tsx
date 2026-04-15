@@ -9,20 +9,31 @@ type BlogArticleProps = {
 // AGENCY_OWNED: reusable blog/article presentation shell.
 export function BlogArticle({ title, excerpt, html }: BlogArticleProps) {
   return (
-    <article className="relative isolate overflow-hidden px-2 py-10 text-card-foreground sm:px-4 md:px-6 md:py-14">
+    <article className="blog-surface relative isolate overflow-hidden rounded-[2rem] border px-4 py-10 shadow-[0_24px_90px_-60px_var(--blog-shadow)] sm:px-6 md:px-8 md:py-14">
       <DotBackground
-        className="opacity-100 mix-blend-soft-light"
-        quantity={140}
-        accentRatio={0.28}
-        baseColor="214, 122, 44"
-        accentColor="255, 154, 72"
-        opacity={0.95}
+        className="opacity-100 mix-blend-multiply dark:mix-blend-screen"
+        quantity={104}
+        accentRatio={0.24}
+        baseColor="35, 35, 32"
+        darkBaseColor="244, 241, 234"
+        accentColor="224, 58, 30"
+        darkAccentColor="255, 125, 79"
+        opacity={0.16}
+        darkOpacity={0.11}
       />
       <div className="relative space-y-5">
-        <h1 className="text-center font-serif text-4xl leading-[0.96] tracking-tight text-card-foreground sm:text-5xl md:text-6xl">{title}</h1>
-        <p className="mx-auto max-w-3xl text-justify text-base leading-8 text-muted-foreground md:text-lg">{excerpt}</p>
+        <div className="flex items-center gap-3">
+          <span className="font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-stone)]">Blog / Note</span>
+          <span className="blog-rule h-px flex-1" />
+        </div>
+        <h1 className="blog-ink font-blog-syne text-center text-[clamp(2.4rem,7vw,4.4rem)] font-black leading-[0.94] tracking-[-0.05em]">
+          {title}
+        </h1>
+        <p className="blog-muted mx-auto max-w-3xl font-blog-syne text-base leading-8 md:text-lg">{excerpt}</p>
 
-        <div className="blog-content mt-8 space-y-6 text-justify text-base leading-8 text-card-foreground" dangerouslySetInnerHTML={{ __html: html }} />
+        <div className="blog-rule mt-8 h-px w-full" />
+
+        <div className="blog-content blog-ink mt-8 space-y-6 text-base leading-8" dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     </article>
   )

@@ -405,8 +405,8 @@ function ProjectShowcaseCard({
           )}
           <span className="title-typing-caret" aria-hidden="true" />
         </h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>
-        <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+        <p className="font-display-syne text-sm leading-relaxed text-muted-foreground">{summary}</p>
+        <p className="font-display-syne text-sm leading-relaxed text-muted-foreground">{body}</p>
         {capabilities?.length ? (
           <ul className="space-y-2 pt-1 text-sm text-muted-foreground">
             {capabilities.map((item, itemIndex) => {
@@ -424,8 +424,8 @@ function ProjectShowcaseCard({
             })}
           </ul>
         ) : null}
-        {role ? <p className="text-sm font-medium leading-relaxed text-card-foreground">{role}</p> : null}
-        {cta ? <p className="text-sm leading-relaxed text-muted-foreground">{cta}</p> : null}
+          {role ? <p className="font-display-syne text-sm font-medium leading-relaxed text-card-foreground">{role}</p> : null}
+          {cta ? <p className="font-display-syne text-sm leading-relaxed text-muted-foreground">{cta}</p> : null}
         {links.length ? (
           <div className="flex flex-wrap items-center gap-2 pt-2">
             {links.map((link) => (
@@ -520,7 +520,7 @@ function RepositoryCard({
           </div>
 
           <h4 className="text-xl font-bold leading-tight text-card-foreground">{displayName}</h4>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="font-display-syne mt-2 text-sm leading-relaxed text-muted-foreground">
             {repo.description ?? "Repository without description yet."}
           </p>
 
@@ -546,7 +546,7 @@ function RepositoryCard({
                 <GitFork className="h-4 w-4 text-[color:var(--accent)]" />
                 {repo.forks_count}
               </span>
-              <span className="text-muted-foreground">
+              <span className="font-display-syne text-muted-foreground">
                 {label.updated} {formatRelativeTime(repo.pushed_at, locale)}
               </span>
             </div>
@@ -633,7 +633,7 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
         <h1 className="mt-3 text-balance font-serif text-4xl leading-[1.02] tracking-tight text-foreground sm:text-5xl md:text-6xl">
           {copy.title}
         </h1>
-        <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
+        <p className="font-display-syne mx-auto mt-4 max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
       </div>
 
       <ScrollReveal direction="up" className="mt-8">
@@ -668,7 +668,7 @@ export async function PortfolioPageContent({ locale }: PortfolioPageContentProps
       <div className="mt-12 mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl space-y-2">
           <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{copy.featuredRepos}</h2>
-          <p className="text-sm leading-6 text-muted-foreground">{renderRepoCodeNote(copy.repoCodeNote)}</p>
+          <p className="font-display-syne text-sm leading-6 text-muted-foreground">{renderRepoCodeNote(copy.repoCodeNote)}</p>
         </div>
         <span className="rounded-full border border-border/60 bg-card/80 px-3 py-1 text-xs font-semibold text-muted-foreground">
           {copy.technicalShowcase}

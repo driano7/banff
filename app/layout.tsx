@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Fraunces, Inter } from "next/font/google"
+import { Fragment_Mono, Inter, Syne } from "next/font/google"
 
 import { SiteFooter } from "@/components/core/site-footer"
 import { SiteHeader } from "@/components/core/site-header"
@@ -20,15 +20,23 @@ import "./globals.css"
 
 // AGENCY_OWNED: root shell wiring for SEO, theme, locale, and global chrome.
 // Client-specific copy/assets flow through the site-content and page components below.
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-})
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+})
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-syne",
+  display: "swap",
+})
+
+const fragmentMono = Fragment_Mono({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-fragment-mono",
   display: "swap",
 })
 
@@ -92,7 +100,11 @@ export default async function RootLayout({
   })
 
   return (
-    <html lang={locale} className={`${fraunces.variable} ${inter.variable} ${theme === "dark" ? "dark" : ""}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${syne.variable} ${fragmentMono.variable} ${theme === "dark" ? "dark" : ""}`}
+      suppressHydrationWarning
+    >
       <body className="relative isolate bg-background text-foreground antialiased">
         <Seo entities={[organizationJsonLd, websiteJsonLd]} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

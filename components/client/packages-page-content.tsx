@@ -88,6 +88,11 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
   const starterPackage = copy.packages.cards.find((card) => card.badge === "Starter") ?? copy.packages.cards[0]
   const growthPackage = copy.packages.cards.find((card) => card.badge === "Growth") ?? copy.packages.cards[1]
   const scalePackage = copy.packages.cards.find((card) => card.badge === "Scale") ?? copy.packages.cards[2]
+  const demoLinks: Partial<Record<string, string>> = {
+    Starter: "https://binffstarter.netlify.app",
+    Scale: "https://banff-commerce.vercel.app/",
+  }
+  const demoLabel = locale === "fr" ? "Voir la démo" : locale === "es" ? "Ver demo" : "View demo"
 
   // AGENCY_OWNED: reusable contact CTA block shared across package cards and quote prompts.
   const renderEmailChip = (href: string, surfaceKey?: string) => (
@@ -115,6 +120,32 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
           <MinimalWhatsappIcon className="h-4 w-4" />
           WhatsApp
         </a>
+      </Button>
+    </div>
+  )
+
+  const renderDemoAction = (cardBadge: string) => {
+    const href = demoLinks[cardBadge]
+
+    if (!href) return null
+
+    return (
+      <div className="pt-2">
+        <Button asChild size="sm" variant="outline" className="rounded-full border-border/60 bg-background/80">
+          <a href={href} target="_blank" rel="noreferrer">
+            <span className="underline decoration-current decoration-2 underline-offset-4">{demoLabel}</span>
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </Button>
+      </div>
+    )
+  }
+
+  const renderGrowthDemoAction = () => (
+    <div className="pt-2">
+      <Button type="button" size="sm" variant="outline" className="rounded-full border-border/60 bg-background/80">
+        <span className="underline decoration-current decoration-2 underline-offset-4">este sitio es el demo</span>
+        <ArrowUpRight className="h-4 w-4" />
       </Button>
     </div>
   )
@@ -195,6 +226,8 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
                 </div>
 
                 <p className="pt-1 text-xs leading-relaxed text-muted-foreground">{card.note}</p>
+                {card.badge === "Growth" ? renderGrowthDemoAction() : null}
+                {renderDemoAction(card.badge)}
                 {renderContactActions(`packages.${card.badge.toLowerCase()}`)}
               </div>
 
@@ -307,8 +340,10 @@ export function PackagesPageContent({ locale }: PackagesPageContentProps) {
               </div>
 
               <p className="pt-1 text-xs leading-relaxed text-muted-foreground">{card.note}</p>
-            {renderContactActions(`packages.${card.badge.toLowerCase()}`)}
-          </>
+              {card.badge === "Growth" ? renderGrowthDemoAction() : null}
+              {renderDemoAction(card.badge)}
+              {renderContactActions(`packages.${card.badge.toLowerCase()}`)}
+            </>
           )}
         </div>
       </div>

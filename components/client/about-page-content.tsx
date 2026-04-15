@@ -1,10 +1,5 @@
-import Image from "next/image"
-
 import { ScrollReveal } from "@/components/core/scroll-reveal"
 import type { Locale } from "@/content/client/site-content"
-
-import BanffLight from "../../BanffClaro.jpeg"
-import BanffDark from "../../BanffOscuro.jpeg"
 
 // MIXED: copy and brand assets are client-owned; layout, motion, and section composition are reusable agency UI.
 const aboutCopy = {
@@ -172,10 +167,10 @@ function AboutIntroSection({ title, description }: AboutIntroCopy) {
     <ScrollReveal direction="up">
       {/* CLIENTE_OWNED: localized about copy is site content. */}
       <div className="mx-auto max-w-3xl text-center text-black dark:text-white">
-        <p className="text-balance font-serif text-3xl leading-[1.02] tracking-tight text-black sm:text-4xl md:text-5xl dark:text-white">
+        <p className="text-balance font-display-syne text-3xl leading-[1.02] tracking-tight text-black sm:text-4xl md:text-5xl dark:text-white">
           {title}
         </p>
-        <p className="mt-4 text-sm leading-7 text-black/80 md:text-base dark:text-white/80">{description}</p>
+        <p className="font-display-syne mt-4 text-sm leading-7 text-black/80 md:text-base dark:text-white/80">{description}</p>
       </div>
     </ScrollReveal>
   )
@@ -190,16 +185,14 @@ function AboutFeaturePanel({
       {/* AGENCY_OWNED: reusable feature-panel layout and motion. */}
       <section className="grid gap-8 rounded-[2rem] border border-border/60 bg-card/80 p-5 text-card-foreground shadow-[0_18px_55px_-28px_rgba(2,6,23,0.45)] dark:bg-card/70 lg:grid-cols-[1.1fr_minmax(280px,0.9fr)] lg:p-8">
         <ScrollReveal direction="down" delay={0.24} className="flex flex-col justify-center text-left">
-          <p className="text-sm leading-7 text-card-foreground/90 md:text-base dark:text-card-foreground/85">{description}</p>
+          <p className="font-display-syne text-sm leading-7 text-card-foreground/90 md:text-base dark:text-card-foreground/85">{description}</p>
           <div className="mt-8">
             <ul className="grid gap-3 sm:grid-cols-2">
               {points.map((point, index) => (
                 <ScrollReveal key={point} direction={index % 2 === 0 ? "up" : "down"} delay={0.12 + index * 0.1}>
-                  <li
-                    className="flex gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3 text-sm leading-6 text-foreground"
-                  >
+                  <li className="flex gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3 text-sm leading-6 text-foreground">
                     <span className="mt-0.5 h-4 w-4 shrink-0 rounded-full border-2 border-[color:var(--accent)]" />
-                    <span>{point}</span>
+                    <span className="font-display-syne">{point}</span>
                   </li>
                 </ScrollReveal>
               ))}
@@ -211,8 +204,18 @@ function AboutFeaturePanel({
           <div className="absolute inset-0 rounded-[2rem] bg-white/10 blur-3xl dark:bg-black/25" />
           <div className="relative w-full p-2 sm:p-4">
             {/* CLIENTE_OWNED: studio brand images / identity assets. Confirm authorship and transfer terms in the contract. */}
-            <Image src={BanffLight} alt="Binff logo" priority className="block h-auto w-full dark:hidden" />
-            <Image src={BanffDark} alt="Binff logo" priority className="hidden h-auto w-full dark:block" />
+            <img
+              src="/logos/binff_studio_parchment.svg"
+              alt="Binff logo"
+              className="block h-auto w-full dark:hidden"
+              loading="eager"
+            />
+            <img
+              src="/logos/binff_studio_vermillion.svg"
+              alt="Binff logo"
+              className="hidden h-auto w-full dark:block"
+              loading="eager"
+            />
           </div>
         </ScrollReveal>
       </section>
@@ -226,7 +229,7 @@ function AboutMapsSection({ locale }: { locale: Locale }) {
       {/* THIRD_PARTY_INTEGRATION: Google Maps embed is an external provider surface. */}
       <section className="space-y-5">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">
+          <p className="font-display-syne mt-3 text-sm leading-7 text-muted-foreground md:text-base">
             {locale === "es"
               ? "Abrimos Google Maps para que puedas ver la ubicación desde cualquier dispositivo."
               : locale === "fr"
@@ -243,7 +246,7 @@ function AboutMapsSection({ locale }: { locale: Locale }) {
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
               <div className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent)]">G maps</p>
-                <h3 className="font-serif text-2xl leading-none tracking-tight text-card-foreground">Torre CN</h3>
+              <h3 className="font-display-syne text-2xl leading-none tracking-tight text-card-foreground">Torre CN</h3>
               </div>
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/40 bg-background/90 text-lg text-muted-foreground shadow-sm transition-transform duration-300 dark:border-white/50 dark:bg-black/40">
                 ▾
@@ -279,10 +282,10 @@ function AboutHowWeWorkSection({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-4xl space-y-6">
           <ScrollReveal direction="up">
             <div className="max-w-3xl">
-              <h2 className="font-serif text-3xl leading-none tracking-tight text-card-foreground sm:text-4xl">
+              <h2 className="font-display-syne text-3xl leading-none tracking-tight text-card-foreground sm:text-4xl">
                 {copy.title}
               </h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
+              <p className="font-display-syne mt-3 text-sm leading-7 text-muted-foreground md:text-base">{copy.description}</p>
             </div>
           </ScrollReveal>
 
@@ -293,10 +296,10 @@ function AboutHowWeWorkSection({ locale }: { locale: Locale }) {
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent)]">
                     0{index + 1}
                   </p>
-                  <h3 className="mt-2 font-serif text-xl leading-tight tracking-tight text-card-foreground">
+                  <h3 className="font-display-syne mt-2 text-xl leading-tight tracking-tight text-card-foreground">
                     {step.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{step.text}</p>
+                  <p className="font-display-syne mt-3 text-sm leading-7 text-muted-foreground">{step.text}</p>
                 </article>
               </ScrollReveal>
             ))}
@@ -322,7 +325,7 @@ export function AboutPageContent({ locale }: AboutPageContentProps) {
         <section className="relative isolate overflow-hidden px-2 py-10 text-card-foreground sm:px-4 md:px-6 md:py-14">
           <div className="relative space-y-6">
             <ScrollReveal direction="up">
-              <h2 className="text-center font-serif text-4xl leading-[0.96] tracking-tight text-card-foreground sm:text-5xl md:text-6xl">
+              <h2 className="text-center font-display-syne text-4xl leading-[0.96] tracking-tight text-card-foreground sm:text-5xl md:text-6xl">
                 {whyMattersCopy[locale].title}
               </h2>
             </ScrollReveal>
@@ -330,7 +333,7 @@ export function AboutPageContent({ locale }: AboutPageContentProps) {
             <ScrollReveal direction="up" delay={0.12}>
               <ol className="mx-auto max-w-3xl space-y-4 text-base text-card-foreground">
                 {whyMattersCopy[locale].items.map((item, index) => (
-                  <li key={item} className="text-lg text-muted-foreground">
+                  <li key={item} className="font-display-syne text-lg text-muted-foreground">
                     {index + 1}. {item}
                   </li>
                 ))}
@@ -339,7 +342,7 @@ export function AboutPageContent({ locale }: AboutPageContentProps) {
 
             <ScrollReveal direction="up" delay={0.24}>
               <div className="mx-auto max-w-3xl rounded-[2rem] border border-border/60 bg-card/80 p-5 text-sm leading-8 text-muted-foreground shadow-[0_18px_55px_-28px_rgba(2,6,23,0.35)] dark:bg-card/70 md:p-6 md:text-base">
-                <p>{whyMattersCopy[locale].lead}</p>
+                <p className="font-display-syne">{whyMattersCopy[locale].lead}</p>
                 <p className="mt-3 text-card-foreground">
                   <strong>
                     <span className="underline decoration-[color:var(--accent)] decoration-2 underline-offset-4">
@@ -347,7 +350,7 @@ export function AboutPageContent({ locale }: AboutPageContentProps) {
                     </span>
                   </strong>
                 </p>
-                <p className="mt-3">{whyMattersCopy[locale].support}</p>
+                <p className="font-display-syne mt-3">{whyMattersCopy[locale].support}</p>
               </div>
             </ScrollReveal>
           </div>

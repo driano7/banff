@@ -54,11 +54,11 @@ export default async function Home() {
           className="relative z-10 flex w-full max-w-5xl -translate-y-[18%] flex-col items-center text-center lg:-translate-y-[33%]"
         >
           <h1
-            className="home-reveal-title font-serif text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5rem]"
+            className="home-reveal-title font-display-syne text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5rem]"
             style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
           >
             <span className="home-reveal-title__line">
-              <span className="bg-gradient-to-b from-white via-white to-zinc-300 bg-clip-text text-transparent dark:from-white dark:via-white dark:to-zinc-400">
+              <span className="font-black leading-[0.94] tracking-[-0.05em] bg-gradient-to-b from-white via-white to-zinc-300 bg-clip-text text-transparent dark:from-white dark:via-white dark:to-zinc-400">
                 {copy.brand.name} Studio
               </span>
             </span>

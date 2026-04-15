@@ -13,9 +13,9 @@ import { localizedBlogHref } from "@/lib/navigation"
 import { buildPageMetadata, seoConfig } from "@/lib/seo"
 
 const blogSurfaces = [
-  "from-accent/20 via-background to-primary/10",
-  "from-sky-400/20 via-background to-accent/15",
-  "from-emerald-400/20 via-background to-accent/15",
+  "from-[#f2edd6] via-[#f9f9f7] to-[#e8e7e3] dark:from-[#111926] dark:via-[#0d1219] dark:to-[#151c27]",
+  "from-[#f9f9f7] via-[#f2edd6] to-[#e8e7e3] dark:from-[#0f151f] dark:via-[#0b1016] dark:to-[#151b24]",
+  "from-[#f9f9f7] via-[#e8e7e3] to-[#f2edd6] dark:from-[#0c1118] dark:via-[#101623] dark:to-[#11151d]",
 ] as const
 
 type LocalePageProps = {
@@ -79,8 +79,28 @@ export default async function BlogPage({ params }: LocalePageProps) {
   if (!doc) return null
 
   return (
-    <main id="blog-scope" className="mx-auto w-full max-w-6xl px-4 pb-8 pt-28 sm:px-6 lg:pt-32">
+    <main
+      id="blog-scope"
+      className="blog-shell mx-auto w-full max-w-6xl px-4 pb-10 pt-28 sm:px-6 lg:pt-32"
+    >
       <HeadingTypewriter scopeSelector="#blog-scope" />
+
+      <section className="blog-hero-card mb-8 rounded-[2rem] border px-5 py-5 sm:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="space-y-3">
+            <p className="font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-stone)]">Binff Studio / Blog</p>
+            <h2 className="blog-ink max-w-2xl font-blog-syne text-2xl font-black leading-[0.96] tracking-[-0.05em] sm:text-3xl">
+              Practical notes on SEO, social selling, AI, and websites that still perform after launch.
+            </h2>
+            <p className="blog-muted max-w-3xl font-blog-syne text-sm leading-7 sm:text-base">
+              Articles written in the same editorial system as the rest of the site: clean contrast, warm paper surfaces, and signal accents used sparingly.
+            </p>
+          </div>
+          <span className="font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-signal)]">
+            Canada / Mexico
+          </span>
+        </div>
+      </section>
 
       <ScrollReveal direction="up">
         <BlogArticle title={doc.title} excerpt={doc.excerpt} html={renderMdxToHtml(doc.content)} />
@@ -89,19 +109,21 @@ export default async function BlogPage({ params }: LocalePageProps) {
       <section className="mt-8 grid gap-4 md:grid-cols-2">
         {posts.map((post, index) => (
           <ScrollReveal key={post.slug} direction={index % 2 === 0 ? "up" : "down"} delay={0.08 + index * 0.08}>
-            <article className="rounded-[2rem] border border-border/70 bg-card/75 p-3 shadow-[0_10px_35px_-24px_rgba(2,6,23,0.55)] transition">
-              <div className={`relative h-full overflow-hidden rounded-[1.4rem] border border-border/70 bg-gradient-to-br p-5 ${blogSurfaces[index % blogSurfaces.length]}`}>
-                <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-accent/20 blur-xl" />
-                <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-primary/20 blur-xl" />
+            <article className="blog-post-card rounded-[2rem] border p-3 transition">
+              <div className={`blog-border relative h-full overflow-hidden rounded-[1.4rem] border bg-gradient-to-br p-5 ${blogSurfaces[index % blogSurfaces.length]}`}>
+                <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#e03a1e]/10 blur-xl dark:bg-[#ff6b42]/12" />
+                <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-[#232320]/10 blur-xl dark:bg-white/10" />
                 <div className="relative space-y-3">
-                  <span className="inline-flex rounded-full border border-border/70 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+                  <span className="blog-pill inline-flex rounded-full border px-2.5 py-1 font-blog-mono text-[11px] uppercase tracking-[0.14em]">
                     {post.tag}
                   </span>
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{post.title}</h2>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
+                  <h2 className="blog-ink font-blog-syne text-base font-bold leading-tight tracking-[-0.03em] sm:text-lg">
+                    {post.title}
+                  </h2>
+                  <p className="blog-muted font-blog-syne text-sm leading-7">{post.excerpt}</p>
                   <Link
                     href={localizedBlogHref(typedLocale, post.slug)}
-                    className="inline-flex items-center gap-2 pt-2 text-sm font-semibold text-[color:var(--accent)] hover:underline"
+                    className="inline-flex items-center gap-2 pt-2 font-blog-mono text-[9px] uppercase tracking-[0.16em] text-[color:var(--blog-signal)] underline decoration-transparent underline-offset-4 transition hover:decoration-current"
                   >
                     {typedLocale === "es" ? "Leer artículo" : typedLocale === "fr" ? "Lire l’article" : "Read article"}
                     <ArrowUpRight className="h-4 w-4" />
@@ -114,7 +136,11 @@ export default async function BlogPage({ params }: LocalePageProps) {
       </section>
 
       <div className="mt-6 flex justify-start">
-        <Button asChild variant="outline" className="rounded-full border-border/60 bg-card/80 px-5 text-sm font-semibold text-card-foreground hover:bg-card dark:bg-card/70">
+        <Button
+          asChild
+          variant="outline"
+          className="blog-cta rounded-full border border-[color:var(--blog-border)] px-5 font-blog-mono text-[9px] uppercase tracking-[0.16em]"
+        >
           <Link href="/#contact">{copy.nav.contact}</Link>
         </Button>
       </div>

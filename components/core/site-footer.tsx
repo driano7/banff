@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { Github, Mail, Send, Phone } from "lucide-react"
+import { Github, Instagram, Mail, Phone, Send } from "lucide-react"
 
+import { getFooterContactCountry } from "@/lib/contact-routing"
 import { getSiteCopy, type Locale } from "@/lib/site-content"
 import { MinimalWhatsappIcon } from "@/components/icons/minimal-whatsapp-icon"
 
@@ -12,22 +12,25 @@ type SiteFooterProps = {
 export function SiteFooter({ locale }: SiteFooterProps) {
   // CLIENTE_OWNED: footer contact data and outbound profiles are sourced from the site copy model.
   const copy = getSiteCopy(locale)
-  const hasMultipleTelegrams = copy.contact.telegrams.length > 1
-  const hasMultipleEmails = copy.contact.emails.length > 1
+  const contactCountry = getFooterContactCountry(locale)
+  const emailIndex = contactCountry === "canada" ? 0 : 1
+  const telegramIndex = contactCountry === "canada" ? 0 : 1
+  const selectedEmail = copy.contact.emails[emailIndex] ?? copy.contact.emails[0]
+  const selectedTelegram = copy.contact.telegrams[telegramIndex] ?? copy.contact.telegrams[0]
+  const selectedPhone = contactCountry === "canada" ? copy.contact.phone : "5512291607"
   const normalizeExternalHref = (href: string) => (href.startsWith("http") ? href : `https://${href}`)
-  const digitsOnlyPhone = copy.contact.phone.replace(/[^+\d]/g, "")
   const whatsappHref = `https://wa.me/${copy.contact.whatsapp.replace(/[^+\d]/g, "").replace(/^\+/, "")}`
   // AGENCY_OWNED: reusable contact-chip layout and icon treatment.
   const contactItems = [
     {
-      href: `mailto:${copy.contact.emails[0]}`,
-      label: `Email${hasMultipleEmails ? " (main)" : ""}`,
+      href: `mailto:${selectedEmail}`,
+      label: `Email ${selectedEmail}`,
       icon: Mail,
       external: false,
     },
     {
-      href: `tel:${digitsOnlyPhone}`,
-      label: "Call",
+      href: `tel:${selectedPhone.replace(/[^+\d]/g, "")}`,
+      label: `Call ${selectedPhone}`,
       icon: Phone,
       external: false,
     },
@@ -38,31 +41,17 @@ export function SiteFooter({ locale }: SiteFooterProps) {
       external: true,
     },
     {
-      href: normalizeExternalHref(copy.contact.telegrams[0]),
-      label: `Telegram${hasMultipleTelegrams ? " (main)" : ""}`,
+      href: normalizeExternalHref(selectedTelegram),
+      label: `Telegram ${selectedTelegram}`,
       icon: Send,
       external: true,
     },
-    ...(hasMultipleEmails
-      ? [
-          {
-            href: `mailto:${copy.contact.emails[1]}`,
-            label: "Email",
-            icon: Mail,
-            external: false,
-          },
-        ]
-      : []),
-    ...(hasMultipleTelegrams
-      ? [
-          {
-            href: normalizeExternalHref(copy.contact.telegrams[1]),
-            label: "Telegram",
-            icon: Send,
-            external: true,
-          },
-        ]
-      : []),
+    {
+      href: copy.contact.instagram,
+      label: "Instagram",
+      icon: Instagram,
+      external: true,
+    },
     {
       href: "https://github.com/driano7",
       label: "GitHub",
@@ -79,19 +68,15 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           {contactItems.map((item) => {
             const Icon = item.icon
             const chip = (
-              <span className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-black/10 bg-white px-3 py-2 text-foreground transition-all duration-300 hover:border-[color:var(--accent)]/35 hover:text-[color:var(--accent)] hover:shadow-[0_0_0_1px_rgba(251,125,79,0.12),0_12px_24px_rgba(251,125,79,0.08)] dark:border-white/10 dark:bg-white/5 dark:text-white/90">
+              <span className="group relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-black/10 bg-white text-foreground transition-all duration-300 hover:border-[color:var(--accent)]/35 hover:text-[color:var(--accent)] hover:shadow-[0_0_0_1px_rgba(251,125,79,0.12),0_12px_24px_rgba(251,125,79,0.08)] dark:border-white/10 dark:bg-white/5 dark:text-white/90">
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(251,125,79,0.18),transparent_72%)] opacity-0 transition-opacity duration-300 content-[''] group-hover:opacity-100" />
-                <Icon className="h-3.5 w-3.5" />
-                {item.label}
+                <Icon className="h-4 w-4" />
+                <span className="sr-only">{item.label}</span>
               </span>
             )
 
-            return item.external ? (
-              <Link key={item.href} href={item.href} target="_blank" rel="noreferrer">
-                {chip}
-              </Link>
-            ) : (
-              <a key={item.href} href={item.href}>
+            return (
+              <a key={item.href} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined} aria-label={item.label} title={item.label}>
                 {chip}
               </a>
             )

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -8,10 +8,18 @@ type DotBackgroundProps = {
   className?: string
   quantity?: number
   speed?: number
+  darkSpeed?: number
+  radiusScale?: number
+  darkRadiusScale?: number
+  alphaScale?: number
+  darkAlphaScale?: number
   accentRatio?: number
   baseColor?: string
+  darkBaseColor?: string
   accentColor?: string
+  darkAccentColor?: string
   opacity?: number
+  darkOpacity?: number
 }
 
 type Dot = {
@@ -30,15 +38,46 @@ export function DotBackground({
   className,
   quantity = 96,
   speed = 0.35,
+  darkSpeed,
+  radiusScale = 1,
+  darkRadiusScale,
+  alphaScale = 1,
+  darkAlphaScale,
   accentRatio = 0.18,
   baseColor = "94, 82, 71",
+  darkBaseColor,
   accentColor = "127, 105, 255",
+  darkAccentColor,
   opacity = 1,
+  darkOpacity,
 }: DotBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const rafRef = useRef<number | null>(null)
   const dotsRef = useRef<Dot[]>([])
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  useEffect(() => {
+    const root = document.documentElement
+
+    const syncTheme = () => {
+      setIsDarkMode(root.classList.contains("dark"))
+    }
+
+    syncTheme()
+
+    const observer = new MutationObserver(syncTheme)
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] })
+
+    return () => observer.disconnect()
+  }, [])
+
+  const resolvedSpeed = isDarkMode && darkSpeed !== undefined ? darkSpeed : speed
+  const resolvedRadiusScale = isDarkMode && darkRadiusScale !== undefined ? darkRadiusScale : radiusScale
+  const resolvedAlphaScale = isDarkMode && darkAlphaScale !== undefined ? darkAlphaScale : alphaScale
+  const resolvedBaseColor = isDarkMode && darkBaseColor ? darkBaseColor : baseColor
+  const resolvedAccentColor = isDarkMode && darkAccentColor ? darkAccentColor : accentColor
+  const resolvedOpacity = isDarkMode && darkOpacity !== undefined ? darkOpacity : opacity
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -73,11 +112,14 @@ export function DotBackground({
       dotsRef.current = Array.from({ length: effectiveCount }, (_, index) => ({
         x: Math.random() * rect.width,
         y: Math.random() * rect.height,
-        vx: (Math.random() - 0.5) * speed,
-        vy: (Math.random() - 0.5) * speed,
-        radius: accentMap[index] ? 1.2 + Math.random() * 1.6 : 0.75 + Math.random() * 1.4,
-        alpha: accentMap[index] ? 0.55 + Math.random() * 0.3 : 0.14 + Math.random() * 0.38,
-        color: accentMap[index] ? accentColor : baseColor,
+        vx: (Math.random() - 0.5) * resolvedSpeed,
+        vy: (Math.random() - 0.5) * resolvedSpeed,
+        radius: (accentMap[index] ? 1.2 + Math.random() * 1.6 : 0.75 + Math.random() * 1.4) * resolvedRadiusScale,
+        alpha: Math.min(
+          1,
+          (accentMap[index] ? 0.55 + Math.random() * 0.3 : 0.14 + Math.random() * 0.38) * resolvedAlphaScale,
+        ),
+        color: accentMap[index] ? resolvedAccentColor : resolvedBaseColor,
       }))
     }
 
@@ -109,10 +151,10 @@ export function DotBackground({
       window.removeEventListener("resize", resize)
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current)
     }
-  }, [accentColor, accentRatio, baseColor, quantity, speed])
+  }, [accentRatio, quantity, resolvedAccentColor, resolvedBaseColor, resolvedRadiusScale, resolvedAlphaScale, resolvedSpeed])
 
   return (
-    <div ref={containerRef} className={cn("pointer-events-none absolute inset-0", className)} style={{ opacity }}>
+    <div ref={containerRef} className={cn("pointer-events-none absolute inset-0", className)} style={{ opacity: resolvedOpacity }}>
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden />
     </div>
   )
